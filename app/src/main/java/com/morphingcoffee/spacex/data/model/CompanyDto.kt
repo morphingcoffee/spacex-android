@@ -1,6 +1,6 @@
-package com.morphingcoffee.spacex.data.models
+package com.morphingcoffee.spacex.data.model
 
-import com.morphingcoffee.spacex.domain.models.Company
+import com.morphingcoffee.spacex.domain.model.Company
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

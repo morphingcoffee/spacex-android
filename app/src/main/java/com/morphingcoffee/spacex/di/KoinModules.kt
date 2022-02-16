@@ -1,7 +1,7 @@
 package com.morphingcoffee.spacex.di
 
 import com.morphingcoffee.spacex.BuildConfig
-import com.morphingcoffee.spacex.data.FetchCompanyService
+import com.morphingcoffee.spacex.data.remote.FetchCompanyService
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,12 +41,12 @@ class KoinModules {
             }
         }
 
-        private fun useCaseModule(): Module = module { }
-
+        // TODO decide if UseCases should simply be part of domain
+//        private fun useCaseModule(): Module = module { }
         // TODO consider if more layers would be beneficial
         //private fun frameworkModule(): Module = module { }
 
         fun all(): List<Module> =
-            presentationModule() + useCaseModule() + domainModule() + repositoryModule() + dataModule()
+            presentationModule() + domainModule() + repositoryModule() + dataModule()
     }
 }

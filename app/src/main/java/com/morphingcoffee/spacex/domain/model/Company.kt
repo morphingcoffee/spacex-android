@@ -1,4 +1,4 @@
-package com.morphingcoffee.spacex.domain.models
+package com.morphingcoffee.spacex.domain.model
 
 data class Company(
     val companyName: String?,
