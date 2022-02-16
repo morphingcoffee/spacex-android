@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.morphingcoffee.spacex.MainFragment"
+        android:name="com.morphingcoffee.spacex.presentation.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main" />
 </navigation>
