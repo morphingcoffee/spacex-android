@@ -2,9 +2,12 @@ package com.morphingcoffee.spacex.di
 
 import com.morphingcoffee.spacex.BuildConfig
 import com.morphingcoffee.spacex.data.remote.FetchCompanyService
+import com.morphingcoffee.spacex.presentation.CompanyViewModel
+import com.morphingcoffee.spacex.presentation.LaunchesViewModel
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -12,7 +15,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class KoinModules {
     companion object {
-        private fun presentationModule(): Module = module { }
+        private fun presentationModule(): Module = module {
+            viewModel { CompanyViewModel() }
+            viewModel { LaunchesViewModel() }
+        }
 
         private fun domainModule(): Module = module {
         }

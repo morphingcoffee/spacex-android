@@ -2,6 +2,16 @@
 
 ### Decisions
 
+#### `/launches/query` endpoint
+
+The regular all launches endpoint includes only an id reference to the rocket, since it's an object
+from another collection, so it is not enough to retrieve the required rocket `name` and `type`
+fields.
+
+Instead of doing a second request to look up rocket info to `/rockets`, I've consulted
+with [the wiki](https://github.com/r-spacex/SpaceX-API/blob/master/docs/queries.md) to switch
+to `/launches/query` instead & get the required rocket info as part of the single request.
+
 #### Nullability of fields in Data Transfer Objects (DTOs)
 
 Based on the provided
@@ -11,5 +21,5 @@ naturally, that's propagated throughout the layers of the client app.
 
 ### v4 vs v5 API endpoints
 
-Although v5 is available for rocket launches, v4 was used for all remote service requests. That's
-mainly to reduce the variance in case one of them experience problems and the other does not.
+I was considering to use the same version for all of the endpoints, but switched to the
+available `v5` for launches, since the data is not coupled to the company info `v4` endpoint. 
