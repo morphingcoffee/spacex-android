@@ -1,5 +1,8 @@
 # spacex-wip
 
+### Sketch
+[Open in draw.io](https://drive.google.com/file/d/1VyL3SQWdsXMWnkCpl57tjIKqt_8wvbEK/view?usp=sharing)
+
 ### Decisions
 
 #### `/launches/query` endpoint

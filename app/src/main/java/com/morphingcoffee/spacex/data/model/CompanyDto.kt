@@ -13,6 +13,7 @@ data class CompanyDto(
     @Json(name = "valuation") val valuation: Int?,
 )
 
+// TODO decide whether this should move to a separate Mapper class (for testability?)
 fun toDomainModel(dto: CompanyDto): Company =
     Company(
         companyName = dto.name,

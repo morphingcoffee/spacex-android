@@ -4,7 +4,7 @@ import com.morphingcoffee.spacex.data.model.CompanyDto
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface FetchCompanyService {
+interface IFetchCompanyService {
     @GET("v4/company")
     suspend fun fetchCompany(): Response<CompanyDto>
 }

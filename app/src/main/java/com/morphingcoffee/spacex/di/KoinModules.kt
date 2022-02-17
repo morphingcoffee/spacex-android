@@ -1,9 +1,18 @@
 package com.morphingcoffee.spacex.di
 
 import com.morphingcoffee.spacex.BuildConfig
-import com.morphingcoffee.spacex.data.remote.FetchCompanyService
-import com.morphingcoffee.spacex.presentation.CompanyViewModel
+import com.morphingcoffee.spacex.data.remote.IFetchCompanyService
+import com.morphingcoffee.spacex.data.remote.IFetchLaunchesService
+import com.morphingcoffee.spacex.domain.interfaces.ICompanyRepository
+import com.morphingcoffee.spacex.domain.interfaces.ILaunchesRepository
+import com.morphingcoffee.spacex.domain.usecase.IGetCompanyUseCase
+import com.morphingcoffee.spacex.domain.usecase.IGetLaunchesUseCase
+import com.morphingcoffee.spacex.domain.usecase.impl.GetCompanyUseCase
+import com.morphingcoffee.spacex.domain.usecase.impl.GetLaunchesUseCase
+import com.morphingcoffee.spacex.presentation.CompanyInfoViewModel
 import com.morphingcoffee.spacex.presentation.LaunchesViewModel
+import com.morphingcoffee.spacex.repository.CompanyRepository
+import com.morphingcoffee.spacex.repository.LaunchesRepository
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,28 +25,38 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class KoinModules {
     companion object {
         private fun presentationModule(): Module = module {
-            viewModel { CompanyViewModel() }
-            viewModel { LaunchesViewModel() }
+            viewModel { CompanyInfoViewModel(get()) }
+            viewModel { LaunchesViewModel(get()) }
         }
 
         private fun domainModule(): Module = module {
+            factory<IGetCompanyUseCase> { GetCompanyUseCase(get()) }
+            factory<IGetLaunchesUseCase> { GetLaunchesUseCase(get()) }
         }
 
         private fun repositoryModule(): Module = module {
+            factory<ICompanyRepository> { CompanyRepository() }
+            factory<ILaunchesRepository> { LaunchesRepository() }
         }
 
         private fun dataModule(): Module = module {
-            factory<FetchCompanyService> { get<Retrofit>().create(FetchCompanyService::class.java) }
+            factory<IFetchCompanyService> { get<Retrofit>().create(IFetchCompanyService::class.java) }
+            factory<IFetchLaunchesService> { get<Retrofit>().create(IFetchLaunchesService::class.java) }
+
             factory<Moshi> {
                 Moshi.Builder()
                     .build()
             }
+
             factory<MoshiConverterFactory> { MoshiConverterFactory.create(get()) }
+
+            factory<HttpLoggingInterceptor> { HttpLoggingInterceptor() }
             factory<OkHttpClient> {
                 OkHttpClient.Builder()
-                    .addInterceptor(HttpLoggingInterceptor())
+                    .addInterceptor(get<HttpLoggingInterceptor>())
                     .build()
             }
+
             single<Retrofit> {
                 Retrofit.Builder()
                     .client(get<OkHttpClient>())
