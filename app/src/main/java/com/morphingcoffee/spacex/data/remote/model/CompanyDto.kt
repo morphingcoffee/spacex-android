@@ -1,4 +1,4 @@
-package com.morphingcoffee.spacex.data.model
+package com.morphingcoffee.spacex.data.remote.model
 
 import com.morphingcoffee.spacex.domain.model.Company
 import com.squareup.moshi.Json

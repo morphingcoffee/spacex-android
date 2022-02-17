@@ -1,6 +1,6 @@
 package com.morphingcoffee.spacex.data.remote
 
-import com.morphingcoffee.spacex.data.model.CompanyDto
+import com.morphingcoffee.spacex.data.remote.model.CompanyDto
 import retrofit2.Response
 import retrofit2.http.GET
 
