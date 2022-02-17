@@ -50,7 +50,12 @@ class KoinModules {
 
             factory<MoshiConverterFactory> { MoshiConverterFactory.create(get()) }
 
-            factory<HttpLoggingInterceptor> { HttpLoggingInterceptor() }
+            // FIXME stricten logging after dev
+            factory<HttpLoggingInterceptor> {
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            }
             factory<OkHttpClient> {
                 OkHttpClient.Builder()
                     .addInterceptor(get<HttpLoggingInterceptor>())
