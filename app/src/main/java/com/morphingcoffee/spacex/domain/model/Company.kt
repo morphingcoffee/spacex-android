@@ -5,5 +5,6 @@ data class Company(
     val founderName: String?,
     val foundedYear: Int?,
     val numOfEmployees: Int?,
-    val valuationInUsd: Int?,
+    val launchSites: Int?,
+    val valuationInUsd: Long?,
 )

@@ -10,15 +10,17 @@ data class CompanyDto(
     @Json(name = "founder") val founder: String?,
     @Json(name = "founded") val founded: Int?,
     @Json(name = "employees") val employees: Int?,
-    @Json(name = "valuation") val valuation: Int?,
+    @Json(name = "launch_sites") val launchSites: Int?,
+    @Json(name = "valuation") val valuation: Long?,
 )
 
 // TODO decide whether this should move to a separate Mapper class (for testability?)
-fun toDomainModel(dto: CompanyDto): Company =
+fun CompanyDto.toDomainModel(): Company =
     Company(
-        companyName = dto.name,
-        founderName = dto.founder,
-        foundedYear = dto.founded,
-        numOfEmployees = dto.employees,
-        valuationInUsd = dto.valuation,
+        companyName = name,
+        founderName = founder,
+        foundedYear = founded,
+        numOfEmployees = employees,
+        launchSites = launchSites,
+        valuationInUsd = valuation,
     )

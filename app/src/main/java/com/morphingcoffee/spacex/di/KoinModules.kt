@@ -35,8 +35,8 @@ class KoinModules {
         }
 
         private fun repositoryModule(): Module = module {
-            factory<ICompanyRepository> { CompanyRepository() }
-            factory<ILaunchesRepository> { LaunchesRepository() }
+            factory<ICompanyRepository> { CompanyRepository(get()) }
+            factory<ILaunchesRepository> { LaunchesRepository(get()) }
         }
 
         private fun dataModule(): Module = module {

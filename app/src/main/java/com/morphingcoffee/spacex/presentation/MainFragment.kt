@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,9 +31,35 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        companyInfoViewModel.company.observe(viewLifecycleOwner) { company ->
-            binding.tv.text = company.companyName
+        companyInfoViewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is CompanyInfoViewModel.UiState.Display -> displayData(state)
+                is CompanyInfoViewModel.UiState.Error -> displayError(state)
+                is CompanyInfoViewModel.UiState.Loading -> displayProgress(state)
+            }
         }
+    }
+
+    private fun displayData(state: CompanyInfoViewModel.UiState.Display) {
+        val company = state.company
+        binding.tv.text = getString(
+            R.string.template_company_description,
+            company.companyName,
+            company.founderName,
+            company.foundedYear,
+            company.numOfEmployees,
+            company.launchSites,
+            company.valuationInUsd
+        )
+    }
+
+    private fun displayProgress(state: CompanyInfoViewModel.UiState.Loading) {
+        binding.tv.text = getString(R.string.loading)
+    }
+
+    private fun displayError(state: CompanyInfoViewModel.UiState.Error) {
+        binding.tv.text = ""
+        Toast.makeText(requireContext(), getString(state.errorRes), Toast.LENGTH_SHORT).show()
     }
 
 }

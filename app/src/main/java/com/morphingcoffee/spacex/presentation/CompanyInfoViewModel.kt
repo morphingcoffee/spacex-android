@@ -4,26 +4,45 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.domain.model.Company
 import com.morphingcoffee.spacex.domain.usecase.IGetCompanyUseCase
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CompanyInfoViewModel(private val getCompanyUseCase: IGetCompanyUseCase) : ViewModel() {
+class CompanyInfoViewModel(
+    private val getCompanyUseCase: IGetCompanyUseCase,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main
+) : ViewModel() {
 
-    private val _company: MutableLiveData<Company> = MutableLiveData()
-    val company: LiveData<Company>
-        get() = _company
+    sealed interface UiState {
+        object Loading : UiState
+        data class Display(val company: Company) : UiState
+        data class Error(val errorRes: Int) : UiState
+    }
+
+    // TODO
+    sealed interface UserAction {}
+
+    private val _state: MutableLiveData<UiState> = MutableLiveData(UiState.Loading)
+    val state: LiveData<UiState>
+        get() = _state
 
     init {
-        viewModelScope.launch {
-            getCompanyUseCase.execute().also {
-                this@CompanyInfoViewModel::handleCompany
-            }
+        viewModelScope.launch(defaultDispatcher) {
+            getCompanyUseCase.execute().also(
+                this@CompanyInfoViewModel::handleCompanyResult
+            )
         }
     }
 
-    private fun handleCompany(new: Company) {
-
+    private fun handleCompanyResult(result: IGetCompanyUseCase.Result) {
+        when (result) {
+            is IGetCompanyUseCase.Result.Error -> _state.value =
+                UiState.Error(R.string.unknown_error_message)
+            is IGetCompanyUseCase.Result.Success -> _state.value = UiState.Display(result.company)
+        }
     }
 
 }
