@@ -1,6 +1,8 @@
 package com.morphingcoffee.spacex.di
 
+import androidx.room.Room
 import com.morphingcoffee.spacex.BuildConfig
+import com.morphingcoffee.spacex.data.local.AppDB
 import com.morphingcoffee.spacex.data.remote.IFetchCompanyService
 import com.morphingcoffee.spacex.data.remote.IFetchLaunchesService
 import com.morphingcoffee.spacex.domain.interfaces.ICompanyRepository
@@ -24,6 +26,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class KoinModules {
     companion object {
+
+        private const val DB_IDENTIFIER = "spacex_app_db"
+
         private fun presentationModule(): Module = module {
             viewModel { CompanyInfoViewModel(get()) }
             viewModel { LaunchesViewModel(get()) }
@@ -35,11 +40,12 @@ class KoinModules {
         }
 
         private fun repositoryModule(): Module = module {
-            factory<ICompanyRepository> { CompanyRepository(get()) }
+            factory<ICompanyRepository> { CompanyRepository(get(), get()) }
             factory<ILaunchesRepository> { LaunchesRepository(get()) }
         }
 
         private fun dataModule(): Module = module {
+            single<AppDB> { Room.databaseBuilder(get(), AppDB::class.java, DB_IDENTIFIER).build() }
             factory<IFetchCompanyService> { get<Retrofit>().create(IFetchCompanyService::class.java) }
             factory<IFetchLaunchesService> { get<Retrofit>().create(IFetchLaunchesService::class.java) }
 

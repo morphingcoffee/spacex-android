@@ -1,5 +1,6 @@
 package com.morphingcoffee.spacex.data.remote.model
 
+import com.morphingcoffee.spacex.data.local.CompanyEntity
 import com.morphingcoffee.spacex.domain.model.Company
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -14,7 +15,6 @@ data class CompanyDto(
     @Json(name = "valuation") val valuation: Long?,
 )
 
-// TODO decide whether this should move to a separate Mapper class (for testability?)
 fun CompanyDto.toDomainModel(): Company =
     Company(
         companyName = name,
@@ -23,4 +23,14 @@ fun CompanyDto.toDomainModel(): Company =
         numOfEmployees = employees,
         launchSites = launchSites,
         valuationInUsd = valuation,
+    )
+
+fun CompanyDto.toEntity(): CompanyEntity =
+    CompanyEntity(
+        name = name,
+        founder = founder,
+        founded = founded,
+        employees = employees,
+        launchSites = launchSites,
+        valuation = valuation,
     )

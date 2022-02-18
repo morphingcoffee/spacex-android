@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class CompanyInfoViewModel(
     private val getCompanyUseCase: IGetCompanyUseCase,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : ViewModel() {
 
     sealed interface UiState {
@@ -39,9 +39,9 @@ class CompanyInfoViewModel(
 
     private fun handleCompanyResult(result: IGetCompanyUseCase.Result) {
         when (result) {
-            is IGetCompanyUseCase.Result.Error -> _state.value =
-                UiState.Error(R.string.unknown_error_message)
-            is IGetCompanyUseCase.Result.Success -> _state.value = UiState.Display(result.company)
+            is IGetCompanyUseCase.Result.Error -> _state.postValue(UiState.Error(R.string.unknown_error_message))
+
+            is IGetCompanyUseCase.Result.Success -> _state.postValue(UiState.Display(result.company))
         }
     }
 
