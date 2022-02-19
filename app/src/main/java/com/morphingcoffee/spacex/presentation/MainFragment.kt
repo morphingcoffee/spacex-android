@@ -15,6 +15,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
 
     private val companyInfoViewModel: CompanyInfoViewModel by viewModel()
+    private val launchesViewModel: LaunchesViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,14 +34,21 @@ class MainFragment : Fragment() {
     private fun setUpObservers() {
         companyInfoViewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is CompanyInfoViewModel.UiState.Display -> displayData(state)
-                is CompanyInfoViewModel.UiState.Error -> displayError(state)
-                is CompanyInfoViewModel.UiState.Loading -> displayProgress(state)
+                is CompanyInfoViewModel.UiState.Display -> displayCompanyData(state)
+                is CompanyInfoViewModel.UiState.Error -> displayError(state.errorRes)
+                is CompanyInfoViewModel.UiState.Loading -> displayProgress()
+            }
+        }
+        launchesViewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is LaunchesViewModel.UiState.Display -> displayLaunchesData(state)
+                is LaunchesViewModel.UiState.Error -> displayError(state.errorRes)
+                LaunchesViewModel.UiState.Loading -> displayProgress()
             }
         }
     }
 
-    private fun displayData(state: CompanyInfoViewModel.UiState.Display) {
+    private fun displayCompanyData(state: CompanyInfoViewModel.UiState.Display) {
         val company = state.company
         binding.tv.text = getString(
             R.string.template_company_description,
@@ -53,13 +61,21 @@ class MainFragment : Fragment() {
         )
     }
 
-    private fun displayProgress(state: CompanyInfoViewModel.UiState.Loading) {
-        binding.tv.text = getString(R.string.loading)
+    private fun displayLaunchesData(state: LaunchesViewModel.UiState.Display) {
+        val launches = state.launches
+        val launch = if (launches.isNotEmpty()) launches[0] else null
+        val text: String = launch?.name ?: "No launches available"
+        binding.launches.text = text
     }
 
-    private fun displayError(state: CompanyInfoViewModel.UiState.Error) {
+    private fun displayProgress() {
+        binding.tv.text = getString(R.string.loading)
+        binding.launches.text = getString(R.string.loading)
+    }
+
+    private fun displayError(errorRes: Int) {
         binding.tv.text = ""
-        Toast.makeText(requireContext(), getString(state.errorRes), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(errorRes), Toast.LENGTH_SHORT).show()
     }
 
 }
