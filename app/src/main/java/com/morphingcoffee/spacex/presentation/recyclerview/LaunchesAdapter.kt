@@ -1,5 +1,6 @@
 package com.morphingcoffee.spacex.presentation.recyclerview
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
 
 class LaunchesAdapter(
+    private val context: Context,
     private val imageLoader: ImageLoader,
     private val imageRequestBuilder: ImageRequest.Builder,
     asyncDifferConfig: AsyncDifferConfig<Launch>
@@ -23,6 +25,9 @@ class LaunchesAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
+        val dateAtTime: TextView = view.findViewById(R.id.dateAtTime)
+        val daysFromNow: TextView = view.findViewById(R.id.daysSinceFromNow)
+        val rocketNameType: TextView = view.findViewById(R.id.rocketNameType)
         val icon: ImageView = view.findViewById(R.id.patchIcon)
         val statusIcon: ImageView = view.findViewById(R.id.launchStatusIcon)
     }
@@ -35,9 +40,19 @@ class LaunchesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+        val unknownFieldString = context.getString(R.string.unknown_value_field)
 
         // Bind data
         holder.title.text = item.name
+        holder.dateAtTime.text = item.launchDateTime ?: unknownFieldString
+        holder.daysFromNow.text = item.launchDateTime ?: unknownFieldString
+
+        // Bind rocket data field
+        val rocketName = item?.rocket?.name ?: unknownFieldString
+        val rocketType = item?.rocket?.type ?: unknownFieldString
+        val rocketDescription =
+            context.getString(R.string.launch_rocket_field_template, rocketName, rocketType)
+        holder.rocketNameType.text = rocketDescription
 
         // Bind launch status icon
         when (item.launchStatus) {

@@ -20,6 +20,7 @@ import com.morphingcoffee.spacex.domain.usecase.impl.GetCompanyUseCase
 import com.morphingcoffee.spacex.domain.usecase.impl.GetLaunchesUseCase
 import com.morphingcoffee.spacex.presentation.CompanyInfoViewModel
 import com.morphingcoffee.spacex.presentation.LaunchesViewModel
+import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesDiffUtilCallback
 import com.morphingcoffee.spacex.repository.CompanyRepository
 import com.morphingcoffee.spacex.repository.LaunchesRepository
@@ -41,6 +42,7 @@ class KoinModules {
             viewModel { CompanyInfoViewModel(get()) }
             viewModel { LaunchesViewModel(get()) }
 
+            factory<LaunchesAdapter> { LaunchesAdapter(get(), get(), get(), get()) }
             factory<DiffUtil.ItemCallback<Launch>> { LaunchesDiffUtilCallback() }
             factory<AsyncDifferConfig<Launch>> { AsyncDifferConfig.Builder<Launch>(get()).build() }
             factory<ImageRequest.Builder> { ImageRequest.Builder(get<Context>()) }

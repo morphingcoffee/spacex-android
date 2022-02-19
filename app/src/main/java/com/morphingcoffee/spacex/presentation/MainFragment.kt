@@ -9,21 +9,16 @@ import androidx.fragment.app.Fragment
 import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.FragmentMainBinding
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
-import org.koin.android.ext.android.getKoin
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var adapter: LaunchesAdapter
+    private val adapter: LaunchesAdapter by inject()
 
     private val companyInfoViewModel: CompanyInfoViewModel by viewModel()
     private val launchesViewModel: LaunchesViewModel by viewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter = LaunchesAdapter(getKoin().get(), getKoin().get(), getKoin().get())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +55,7 @@ class MainFragment : Fragment() {
     private fun displayCompanyData(state: CompanyInfoViewModel.UiState.Display) {
         val company = state.company
         binding.tv.text = getString(
-            R.string.template_company_description,
+            R.string.company_description_template,
             company.companyName,
             company.founderName,
             company.foundedYear,

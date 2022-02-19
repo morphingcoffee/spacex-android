@@ -26,6 +26,7 @@ fun LaunchWithRocketDto.toDomainModel(): Launch {
         name = name,
         rocket = rocketDto?.toDomainModel(),
         links = linksDto?.toDomainModel(),
-        launchStatus = status
+        launchStatus = status,
+        launchDateTime = dateUtc
     )
 }
