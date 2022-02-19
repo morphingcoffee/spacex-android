@@ -8,14 +8,22 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.FragmentMainBinding
+import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
+import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private lateinit var adapter: LaunchesAdapter
 
     private val companyInfoViewModel: CompanyInfoViewModel by viewModel()
     private val launchesViewModel: LaunchesViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        adapter = LaunchesAdapter(getKoin().get(), getKoin().get(), getKoin().get())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +31,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding.recyclerView.adapter = adapter
         return binding.root
     }
 
@@ -65,12 +74,12 @@ class MainFragment : Fragment() {
         val launches = state.launches
         val launch = if (launches.isNotEmpty()) launches[0] else null
         val text: String = launch?.name ?: "No launches available"
-        binding.launches.text = text
+        // Update RecyclerView
+        adapter.submitList(state.launches)
     }
 
     private fun displayProgress() {
         binding.tv.text = getString(R.string.loading)
-        binding.launches.text = getString(R.string.loading)
     }
 
     private fun displayError(errorRes: Int) {

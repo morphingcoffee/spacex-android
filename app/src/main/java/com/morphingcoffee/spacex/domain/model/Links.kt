@@ -1,3 +1,8 @@
 package com.morphingcoffee.spacex.domain.model
 
-data class Links(val webcastURL: String?, val articleURL: String?, val wikiURL: String?)
+data class Links(
+    val webcastURL: String?,
+    val articleURL: String?,
+    val wikiURL: String?,
+    val patchImage: PatchImage?
+)

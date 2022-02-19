@@ -1,5 +1,6 @@
 package com.morphingcoffee.spacex.data.remote.model
 
+import com.morphingcoffee.spacex.domain.model.PatchImage
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -7,4 +8,9 @@ import com.squareup.moshi.JsonClass
 data class LaunchPatchDto(
     @Json(name = "small") val small: String?,
     @Json(name = "large") val large: String?
+)
+
+fun LaunchPatchDto.toDomainModel() = PatchImage(
+    smallURL = small,
+    largeURL = large,
 )

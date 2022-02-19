@@ -16,4 +16,5 @@ fun LaunchWithRocketDto.toDomainModel(): Launch =
     Launch(
         name = name,
         rocket = rocketDto?.toDomainModel(),
+        links = linksDto?.toDomainModel()
     )
