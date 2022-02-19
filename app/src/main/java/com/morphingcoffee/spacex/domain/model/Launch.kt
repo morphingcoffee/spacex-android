@@ -1,7 +1,9 @@
 package com.morphingcoffee.spacex.domain.model
 
 data class Launch(
+    val id: String,
     val name: String?,
+    val launchStatus: LaunchStatus,
     val rocket: Rocket?,
     val links: Links?,
 )

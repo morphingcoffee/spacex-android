@@ -3,5 +3,5 @@ package com.morphingcoffee.spacex.data.remote.model
 /**
  * FIXME doc
  */
-val PopulateRocketRequestOptions: RequestOptions =
+val PopulateRocketRequestOption: RequestOptions =
     RequestOptions(fieldsToPopulate = listOf("rocket"))

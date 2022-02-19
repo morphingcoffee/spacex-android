@@ -25,4 +25,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
 
+    <ImageView
+        android:id="@+id/launchStatusIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/launch_icon_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

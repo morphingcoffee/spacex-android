@@ -13,6 +13,7 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.domain.model.Launch
+import com.morphingcoffee.spacex.domain.model.LaunchStatus
 
 class LaunchesAdapter(
     private val imageLoader: ImageLoader,
@@ -23,6 +24,7 @@ class LaunchesAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
         val icon: ImageView = view.findViewById(R.id.patchIcon)
+        val statusIcon: ImageView = view.findViewById(R.id.launchStatusIcon)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -33,8 +35,18 @@ class LaunchesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+
+        // Bind data
         holder.title.text = item.name
 
+        // Bind launch status icon
+        when (item.launchStatus) {
+            LaunchStatus.Successful -> holder.statusIcon.setBackgroundResource(R.drawable.done)
+            LaunchStatus.Failed -> holder.statusIcon.setBackgroundResource(R.drawable.close)
+            LaunchStatus.FutureLaunch -> holder.statusIcon.setBackgroundResource(R.drawable.question_mark)
+        }
+
+        // Bind patch image
         val patchImage = item.links?.patchImage
         val r = imageRequestBuilder
             .data(patchImage?.smallURL ?: patchImage?.largeURL)

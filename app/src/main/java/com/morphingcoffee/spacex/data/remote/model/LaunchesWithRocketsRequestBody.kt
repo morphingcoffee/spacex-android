@@ -7,4 +7,4 @@ import com.squareup.moshi.JsonClass
  **/
 @JsonClass(generateAdapter = true)
 class LaunchesWithRocketsRequestBody(query: RequestQuery? = null, options: RequestOptions? = null) :
-    LaunchesRequestBody(query, PopulateRocketRequestOptions + options)
+    LaunchesRequestBody(query, PopulateRocketRequestOption + options)
