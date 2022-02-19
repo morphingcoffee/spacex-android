@@ -4,8 +4,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class LaunchesPaginationDto(
-    @Json(name = "docs") val docs: List<LaunchDto>,
+data class LaunchesWithRocketsPaginationDto(
+    @Json(name = "docs") val docs: List<LaunchWithRocketDto>,
     @Json(name = "totalDocs") val totalDocs: Int,
     @Json(name = "offset") val offset: Int,
     @Json(name = "limit") val limit: Int,
