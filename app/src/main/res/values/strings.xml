@@ -5,5 +5,7 @@
     <string name="launch_icon_content_description">Mission launch patch image</string>
     <!--  Errors  -->
     <string name="unknown_error_message">Something went wrong. Please try again</string>
+    <!--  Other  -->
     <string name="loading">Loading…</string>
+    <string name="blank" />
 </resources>

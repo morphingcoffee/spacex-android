@@ -71,9 +71,6 @@ class MainFragment : Fragment() {
     }
 
     private fun displayLaunchesData(state: LaunchesViewModel.UiState.Display) {
-        val launches = state.launches
-        val launch = if (launches.isNotEmpty()) launches[0] else null
-        val text: String = launch?.name ?: "No launches available"
         // Update RecyclerView
         adapter.submitList(state.launches)
     }
@@ -83,7 +80,7 @@ class MainFragment : Fragment() {
     }
 
     private fun displayError(errorRes: Int) {
-        binding.tv.text = ""
+        binding.tv.text = getString(R.string.blank)
         Toast.makeText(requireContext(), getString(errorRes), Toast.LENGTH_SHORT).show()
     }
 
