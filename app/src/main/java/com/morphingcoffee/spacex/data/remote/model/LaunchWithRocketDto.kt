@@ -12,6 +12,7 @@ data class LaunchWithRocketDto(
     @Json(name = "name") val name: String?,
     @Json(name = "success") val success: Boolean?,
     @Json(name = "date_utc") val dateUtc: String?,
+    @Json(name = "date_unix") val dateUnix: Long?,
     @Json(name = "links") val linksDto: LaunchLinksDto?,
     @Json(name = "rocket") val rocketDto: RocketDto?
 )
@@ -38,6 +39,7 @@ fun LaunchWithRocketDto.toEntity(): LaunchEntity {
         name = name,
         success = success,
         dateUtc = dateUtc,
+        dateUnix = dateUnix,
         links = linksDto?.toEntity(),
         rocket = rocketDto?.toEntity()
     )

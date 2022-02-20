@@ -16,6 +16,7 @@ data class LaunchEntity(
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "success") val success: Boolean?,
     @ColumnInfo(name = "dateUtc") val dateUtc: String?,
+    @ColumnInfo(name = "dateUnix") val dateUnix: Long?,
     @Embedded val links: LaunchLinksEntity?,
     @Embedded val rocket: RocketEntity?,
 )

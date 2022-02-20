@@ -48,9 +48,10 @@ class KoinModules {
             factory<ImageRequest.Builder> { ImageRequest.Builder(get<Context>()) }
             single<ImageLoader> {
                 ImageLoader.Builder(get())
+                    .error(R.drawable.rocket)
                     .placeholder(R.drawable.rocket)
-                    .crossfade(true)
-                    .crossfade(300)
+                    .fallback(R.drawable.rocket)
+                    .crossfade(200)
                     .build()
             }
         }

@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 class RequestOptions(
     @Json(name = "populate") val fieldsToPopulate: List<String> = emptyList(),
-    @Json(name = "pagination") val pagination: Boolean = true
+    @Json(name = "pagination") val pagination: Boolean = false
 ) {
     operator fun plus(otherOptions: RequestOptions?): RequestOptions {
         if (otherOptions == null) {

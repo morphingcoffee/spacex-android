@@ -8,33 +8,36 @@ import com.morphingcoffee.spacex.data.remote.model.toDomainModel
 import com.morphingcoffee.spacex.data.remote.model.toEntity
 import com.morphingcoffee.spacex.domain.interfaces.ICompanyRepository
 import com.morphingcoffee.spacex.domain.model.Company
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
 
 class CompanyRepository(private val companyService: IFetchCompanyService, private val db: AppDB) :
     ICompanyRepository {
     override suspend fun getCompany(): Company? {
         return try {
-            val response = companyService.fetchCompany()
-            val companyDto = response.body()
-            updateDb(companyDto)
-            val company = companyDto?.toDomainModel()
-            company
+            fetchFromRemote()
         } catch (e: UnknownHostException) {
             // No Internet connection case. Look-up cached values from DB
-            db.companyDao().get()?.toDomainModel()
+            getFromDb()
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
 
-    private suspend fun updateDb(companyDto: CompanyDto?) {
+    private suspend fun fetchFromRemote(): Company? {
+        val response = companyService.fetchCompany()
+        val companyDto = response.body()
+        updateDb(companyDto)
+        return companyDto?.toDomainModel()
+    }
+
+    private fun getFromDb(): Company? {
+        return db.companyDao().get()?.toDomainModel()
+    }
+
+    private fun updateDb(companyDto: CompanyDto?) {
         if (companyDto != null) {
-            withContext(Dispatchers.IO) {
-                db.companyDao().update(company = companyDto.toEntity())
-            }
+            db.companyDao().update(company = companyDto.toEntity())
         }
     }
 
