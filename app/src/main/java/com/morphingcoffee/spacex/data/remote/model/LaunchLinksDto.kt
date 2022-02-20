@@ -1,5 +1,6 @@
 package com.morphingcoffee.spacex.data.remote.model
 
+import com.morphingcoffee.spacex.data.local.LaunchLinksEntity
 import com.morphingcoffee.spacex.domain.model.Links
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -17,4 +18,11 @@ fun LaunchLinksDto.toDomainModel() = Links(
     articleURL = articleURL,
     wikiURL = wikiURL,
     patchImage = patchDto?.toDomainModel()
+)
+
+fun LaunchLinksDto.toEntity() = LaunchLinksEntity(
+    youtubeURL = youtubeURL,
+    articleURL = articleURL,
+    wikiURL = wikiURL,
+    patchEntity = patchDto?.toEntity(),
 )

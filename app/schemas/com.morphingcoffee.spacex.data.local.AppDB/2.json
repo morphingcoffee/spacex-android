@@ -1,0 +1,156 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "6c6cf7a8429466f1cbb51101bce7a359",
+    "entities": [
+      {
+        "tableName": "company",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `name` TEXT, `founder` TEXT, `year_founded` INTEGER, `employees` INTEGER, `launch_sites` INTEGER, `valuation_in_usd` INTEGER, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "founder",
+            "columnName": "founder",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "founded",
+            "columnName": "year_founded",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "employees",
+            "columnName": "employees",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "launchSites",
+            "columnName": "launch_sites",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valuation",
+            "columnName": "valuation_in_usd",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "launches",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` TEXT NOT NULL, `name` TEXT, `success` INTEGER, `dateUtc` TEXT, `youtubeURL` TEXT, `articleURL` TEXT, `wikiURL` TEXT, `smallPatch` TEXT, `largePatch` TEXT, `rocketId` TEXT, `rocketName` TEXT, `rocketType` TEXT, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "success",
+            "columnName": "success",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateUtc",
+            "columnName": "dateUtc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.youtubeURL",
+            "columnName": "youtubeURL",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.articleURL",
+            "columnName": "articleURL",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.wikiURL",
+            "columnName": "wikiURL",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.patchEntity.small",
+            "columnName": "smallPatch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "links.patchEntity.large",
+            "columnName": "largePatch",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rocket.id",
+            "columnName": "rocketId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rocket.name",
+            "columnName": "rocketName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rocket.type",
+            "columnName": "rocketType",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6c6cf7a8429466f1cbb51101bce7a359')"
+    ]
+  }
+}

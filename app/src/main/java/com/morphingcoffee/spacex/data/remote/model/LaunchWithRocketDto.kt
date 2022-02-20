@@ -1,5 +1,6 @@
 package com.morphingcoffee.spacex.data.remote.model
 
+import com.morphingcoffee.spacex.data.local.LaunchEntity
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
 import com.squareup.moshi.Json
@@ -28,5 +29,16 @@ fun LaunchWithRocketDto.toDomainModel(): Launch {
         links = linksDto?.toDomainModel(),
         launchStatus = status,
         launchDateTime = dateUtc
+    )
+}
+
+fun LaunchWithRocketDto.toEntity(): LaunchEntity {
+    return LaunchEntity(
+        uid = id,
+        name = name,
+        success = success,
+        dateUtc = dateUtc,
+        links = linksDto?.toEntity(),
+        rocket = rocketDto?.toEntity()
     )
 }
