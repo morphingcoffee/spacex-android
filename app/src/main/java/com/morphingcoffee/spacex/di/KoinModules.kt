@@ -23,7 +23,9 @@ import com.morphingcoffee.spacex.presentation.LaunchesViewModel
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesDiffUtilCallback
 import com.morphingcoffee.spacex.repository.CompanyRepository
+import com.morphingcoffee.spacex.repository.ICurrentUnixTimeProvider
 import com.morphingcoffee.spacex.repository.LaunchesRepository
+import com.morphingcoffee.spacex.repository.model.LaunchesCachingConfig
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,6 +39,9 @@ class KoinModules {
     companion object {
 
         private const val DB_IDENTIFIER = "spacex_app_db"
+
+        /** 60 second launches cache **/
+        private const val LAUNCHES_CACHE_VALIDITY_IN_MILLIS = 60000L
 
         private fun presentationModule(): Module = module {
             viewModel { CompanyViewModel(get()) }
@@ -62,8 +67,10 @@ class KoinModules {
         }
 
         private fun repositoryModule(): Module = module {
+            factory<LaunchesCachingConfig> { LaunchesCachingConfig(launchesCacheValidityInMillis = LAUNCHES_CACHE_VALIDITY_IN_MILLIS) }
             factory<ICompanyRepository> { CompanyRepository(get(), get()) }
-            factory<ILaunchesRepository> { LaunchesRepository(get(), get()) }
+            factory<ILaunchesRepository> { LaunchesRepository(get(), get(), get(), get()) }
+            factory<ICurrentUnixTimeProvider> { ICurrentUnixTimeProvider { System.currentTimeMillis() } }
         }
 
         private fun dataModule(): Module = module {

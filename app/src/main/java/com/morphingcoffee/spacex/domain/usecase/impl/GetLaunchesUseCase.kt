@@ -19,7 +19,7 @@ class GetLaunchesUseCase(private val launchesRepository: ILaunchesRepository) :
     ): Result {
         return try {
             return Result.Success(
-                launchesRepository.getAllLaunches(
+                launchesRepository.getAllLaunchesWithCriteria(
                     sortingOption,
                     filterStatusOption,
                     filterYearOption

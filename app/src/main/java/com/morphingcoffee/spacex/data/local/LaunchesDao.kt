@@ -20,14 +20,17 @@ interface LaunchesDao {
                         WHEN :launchStatusCriteria = 0 THEN success = 0
                         ELSE 1=1
                     END
+                 AND 1=1 OR :launchYearCriteria = :launchYearCriteria
                  ORDER BY
                    CASE WHEN :sortAscending = 1 THEN dateUnix END ASC,
                    CASE WHEN :sortAscending = 0 THEN dateUnix END DESC
               """
     )
+    // FIXME ^ launchYearCriteria is a placeholder
     fun getAllWithMatchingCriteria(
         sortAscending: Boolean,
-        launchStatusCriteria: Boolean?
+        launchStatusCriteria: Boolean?,
+        launchYearCriteria: Int?
     ): List<LaunchEntity>?
 
     /**

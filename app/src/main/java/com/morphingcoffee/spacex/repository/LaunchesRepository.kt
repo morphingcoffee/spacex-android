@@ -9,19 +9,33 @@ import com.morphingcoffee.spacex.domain.model.FilteringOption
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
 import com.morphingcoffee.spacex.domain.model.SortingOption
+import com.morphingcoffee.spacex.repository.model.LaunchesCachingConfig
 import java.net.UnknownHostException
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import kotlin.math.abs
 
 class LaunchesRepository(
     private val launchesService: IFetchLaunchesService,
-    private val db: AppDB
+    private val db: AppDB,
+    private val cachingConfig: LaunchesCachingConfig,
+    private val currentUnixTimeProvider: ICurrentUnixTimeProvider
 ) : ILaunchesRepository {
-    override suspend fun getAllLaunches(
+
+    private var lastSuccessfulRemoteFetchTime: Long = 0L
+
+    override suspend fun getAllLaunchesWithCriteria(
         sortingOption: SortingOption,
         filterStatusOption: FilteringOption.ByLaunchStatus?,
         filterYearOption: FilteringOption.ByYear?
     ): List<Launch> {
+        if (isCacheStillValid()) {
+            return getFromDb(sortingOption, filterStatusOption, filterYearOption)
+        }
         return try {
-            fetchAllFromRemote(sortingOption)
+            fetchFromRemote(sortingOption, filterStatusOption, filterYearOption).also {
+                lastSuccessfulRemoteFetchTime = currentUnixTimeProvider.currentTimeMillis()
+            }
         } catch (e: UnknownHostException) {
             // No Internet connection case. Look-up cached values from DB
             getFromDb(sortingOption, filterStatusOption, filterYearOption)
@@ -31,9 +45,11 @@ class LaunchesRepository(
         }
     }
 
-    // TODO remove [filterOptions] from [fetchAllFromRemote]. This will do a full fetch, and we'll filter from DB
-    private suspend fun fetchAllFromRemote(
-        sortingOption: SortingOption
+    /** Retrieve all documents from remote to cache them, but apply filtering criteria before returning **/
+    private suspend fun fetchFromRemote(
+        sortingOption: SortingOption,
+        filterStatusOption: FilteringOption.ByLaunchStatus?,
+        filterYearOption: FilteringOption.ByYear?
     ): List<Launch> {
         val sortDirection = if (sortingOption is SortingOption.Ascending) 1 else -1
         val paginationResponse = launchesService.fetchLaunchesWithRockets(
@@ -45,13 +61,35 @@ class LaunchesRepository(
                 )
             )
         )
-        val paginationDto = paginationResponse.body()
-        val launchDtos = paginationDto?.docs
-        replaceDbEntries(launchDtos)
-        val allLaunches = launchDtos
+        val launchDtos = paginationResponse.body()?.docs
+
+        // Update DB cache
+        replaceAllDbEntries(launchDtos)
+
+        // Filter on preferred criteria
+        val filteredLaunches = launchDtos
+            ?.filter {
+                when {
+                    filterYearOption == null -> true
+                    it.dateUnix == null -> false
+                    else -> {
+                        val launchDateUtc =
+                            LocalDateTime.ofEpochSecond(it.dateUnix, 0, ZoneOffset.UTC)
+                        launchDateUtc.year == filterYearOption.year
+                    }
+                }
+            }
+            ?.filter {
+                when (filterStatusOption?.status) {
+                    LaunchStatus.Successful -> it.success == true
+                    LaunchStatus.Failed -> it.success == false
+                    LaunchStatus.FutureLaunch -> it.success == null
+                    null -> true
+                }
+            }
             ?.map { it.toDomainModel() }
             ?.toList()
-        return allLaunches ?: emptyList()
+        return filteredLaunches ?: emptyList()
     }
 
     private fun getFromDb(
@@ -62,7 +100,7 @@ class LaunchesRepository(
         val dao = db.launchesDao()
         val sortAscending = sortingOption == SortingOption.Ascending
 
-        val filterYearCriteria: Int? = filterYearOption?.year
+        val launchYearCriteria: Int? = filterYearOption?.year
         val launchStatusCriteria: Boolean? = when (filterStatusOption?.status) {
             LaunchStatus.Successful -> true
             LaunchStatus.Failed -> false
@@ -71,17 +109,28 @@ class LaunchesRepository(
 
         return dao.getAllWithMatchingCriteria(
             sortAscending,
-            launchStatusCriteria = launchStatusCriteria
+            launchStatusCriteria = launchStatusCriteria,
+            launchYearCriteria = launchYearCriteria
         )
             ?.map { it.toDomainModel() }
             ?.toList()
             ?: emptyList()
     }
 
-    private fun replaceDbEntries(launchDtos: List<LaunchWithRocketDto>?) {
+    private fun replaceAllDbEntries(launchDtos: List<LaunchWithRocketDto>?) {
         if (!launchDtos.isNullOrEmpty()) {
             db.launchesDao().deleteExistingAndInsertAll(launches = launchDtos.map { it.toEntity() })
         }
+    }
+
+    /**
+     * Here we simply rely on [cachingConfig] configuration to reduce the remote lookup traffic
+     * since we already have all the data in DB.
+     **/
+    private fun isCacheStillValid(): Boolean {
+        val now = currentUnixTimeProvider.currentTimeMillis()
+        val elapsed = abs(now - lastSuccessfulRemoteFetchTime)
+        return elapsed <= cachingConfig.launchesCacheValidityInMillis
     }
 
 }

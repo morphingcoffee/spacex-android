@@ -9,7 +9,7 @@ interface ILaunchesRepository {
      * and sorted by [sortingOption] strategy.
      * Passing null to [filterStatusOption] and [filterYearOption] disables corresponding filtering.
      **/
-    suspend fun getAllLaunches(
+    suspend fun getAllLaunchesWithCriteria(
         sortingOption: SortingOption,
         filterStatusOption: FilteringOption.ByLaunchStatus?,
         filterYearOption: FilteringOption.ByYear?,
