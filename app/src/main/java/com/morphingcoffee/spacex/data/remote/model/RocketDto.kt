@@ -1,6 +1,6 @@
 package com.morphingcoffee.spacex.data.remote.model
 
-import com.morphingcoffee.spacex.data.local.RocketEntity
+import com.morphingcoffee.spacex.data.local.model.RocketEntity
 import com.morphingcoffee.spacex.domain.model.Rocket
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

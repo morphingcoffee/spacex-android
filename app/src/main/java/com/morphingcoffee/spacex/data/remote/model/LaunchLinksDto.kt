@@ -1,6 +1,6 @@
 package com.morphingcoffee.spacex.data.remote.model
 
-import com.morphingcoffee.spacex.data.local.LaunchLinksEntity
+import com.morphingcoffee.spacex.data.local.model.LaunchLinksEntity
 import com.morphingcoffee.spacex.domain.model.Links
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

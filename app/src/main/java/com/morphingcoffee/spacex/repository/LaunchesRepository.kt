@@ -1,7 +1,7 @@
 package com.morphingcoffee.spacex.repository
 
 import com.morphingcoffee.spacex.data.local.AppDB
-import com.morphingcoffee.spacex.data.local.toDomainModel
+import com.morphingcoffee.spacex.data.local.model.toDomainModel
 import com.morphingcoffee.spacex.data.remote.IFetchLaunchesService
 import com.morphingcoffee.spacex.data.remote.model.LaunchWithRocketDto
 import com.morphingcoffee.spacex.data.remote.model.LaunchesWithRocketsRequestBody
@@ -10,6 +10,7 @@ import com.morphingcoffee.spacex.data.remote.model.toEntity
 import com.morphingcoffee.spacex.domain.interfaces.ILaunchesRepository
 import com.morphingcoffee.spacex.domain.model.FilteringOption
 import com.morphingcoffee.spacex.domain.model.Launch
+import com.morphingcoffee.spacex.domain.model.LaunchStatus
 import com.morphingcoffee.spacex.domain.model.SortingOption
 import java.net.UnknownHostException
 
@@ -22,7 +23,7 @@ class LaunchesRepository(
         filterOptions: List<FilteringOption>
     ): List<Launch> {
         return try {
-            fetchFromRemote(sortingOption, filterOptions)
+            fetchAllFromRemote(sortingOption, filterOptions)
         } catch (e: UnknownHostException) {
             // No Internet connection case. Look-up cached values from DB
             getFromDb(sortingOption, filterOptions)
@@ -32,7 +33,8 @@ class LaunchesRepository(
         }
     }
 
-    private suspend fun fetchFromRemote(
+    // TODO remove [filterOptions] from [fetchAllFromRemote]. This will do a full fetch, and we'll filter from DB
+    private suspend fun fetchAllFromRemote(
         sortingOption: SortingOption,
         filterOptions: Iterable<FilteringOption>
     ): List<Launch> {
@@ -41,11 +43,11 @@ class LaunchesRepository(
         )
         val paginationDto = paginationResponse.body()
         val launchDtos = paginationDto?.docs
-        updateDb(launchDtos)
-        val launches = launchDtos
+        replaceDbEntries(launchDtos)
+        val allLaunches = launchDtos
             ?.map { it.toDomainModel() }
             ?.toList()
-        return launches ?: emptyList()
+        return allLaunches ?: emptyList()
     }
 
     private fun getFromDb(
@@ -54,23 +56,29 @@ class LaunchesRepository(
     ): List<Launch> {
         val dao = db.launchesDao()
         val sortAscending = sortingOption == SortingOption.Ascending
-        if (filterOptions.isNotEmpty()) {
-//            return dao.getAllWithLaunchStatus()
-//                ?.map { it.toDomainModel() }
-//                ?.toList()
-//                ?: emptyList()
-            TODO("wip")
-        } else {
-            return dao.getAll(sortAscending)
-                ?.map { it.toDomainModel() }
-                ?.toList()
-                ?: emptyList()
+        var filterYearCriteria: Int? = null
+        var launchStatusCriteria: Boolean? = null
+        // Unpack filter options & translate to primitive values
+        filterOptions.forEach { option ->
+            when (option) {
+                is FilteringOption.ByLaunchStatus -> launchStatusCriteria =
+                    option.status == LaunchStatus.Successful
+                is FilteringOption.ByYear -> filterYearCriteria = option.year
+            }
         }
+
+        return dao.getAllWithMatchingCriteria(
+            sortAscending,
+            launchStatusCriteria = launchStatusCriteria
+        )
+            ?.map { it.toDomainModel() }
+            ?.toList()
+            ?: emptyList()
     }
 
-    private fun updateDb(launchDtos: List<LaunchWithRocketDto>?) {
+    private fun replaceDbEntries(launchDtos: List<LaunchWithRocketDto>?) {
         if (!launchDtos.isNullOrEmpty()) {
-            db.launchesDao().update(launches = launchDtos.map { it.toEntity() })
+            db.launchesDao().deleteExistingAndInsertAll(launches = launchDtos.map { it.toEntity() })
         }
     }
 

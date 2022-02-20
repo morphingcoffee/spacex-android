@@ -1,4 +1,4 @@
-package com.morphingcoffee.spacex.data.local
+package com.morphingcoffee.spacex.data.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded

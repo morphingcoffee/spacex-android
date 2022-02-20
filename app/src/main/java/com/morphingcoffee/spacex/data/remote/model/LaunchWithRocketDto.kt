@@ -1,6 +1,6 @@
 package com.morphingcoffee.spacex.data.remote.model
 
-import com.morphingcoffee.spacex.data.local.LaunchEntity
+import com.morphingcoffee.spacex.data.local.model.LaunchEntity
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
 import com.squareup.moshi.Json

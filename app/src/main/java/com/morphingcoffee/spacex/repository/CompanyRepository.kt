@@ -1,7 +1,7 @@
 package com.morphingcoffee.spacex.repository
 
 import com.morphingcoffee.spacex.data.local.AppDB
-import com.morphingcoffee.spacex.data.local.toDomainModel
+import com.morphingcoffee.spacex.data.local.model.toDomainModel
 import com.morphingcoffee.spacex.data.remote.IFetchCompanyService
 import com.morphingcoffee.spacex.data.remote.model.CompanyDto
 import com.morphingcoffee.spacex.data.remote.model.toDomainModel
@@ -37,7 +37,7 @@ class CompanyRepository(private val companyService: IFetchCompanyService, privat
 
     private fun updateDb(companyDto: CompanyDto?) {
         if (companyDto != null) {
-            db.companyDao().update(company = companyDto.toEntity())
+            db.companyDao().insertOrUpdate(company = companyDto.toEntity())
         }
     }
 
