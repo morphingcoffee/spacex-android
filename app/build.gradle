@@ -75,7 +75,6 @@ dependencies {
 
     // Web Client
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    // FIXME TODO this can be removed after debugging
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     // Coroutines
