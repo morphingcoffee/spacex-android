@@ -13,12 +13,12 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainFragment : Fragment() {
+class CompanyLaunchesFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private val adapter: LaunchesAdapter by inject()
 
-    private val companyInfoViewModel: CompanyInfoViewModel by viewModel()
+    private val companyViewModel: CompanyViewModel by viewModel()
     private val launchesViewModel: LaunchesViewModel by viewModel()
 
     override fun onCreateView(
@@ -37,11 +37,11 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        companyInfoViewModel.state.observe(viewLifecycleOwner) { state ->
+        companyViewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is CompanyInfoViewModel.UiState.Display -> displayCompanyData(state)
-                is CompanyInfoViewModel.UiState.Error -> displayError(state.errorRes)
-                is CompanyInfoViewModel.UiState.Loading -> displayProgress()
+                is CompanyViewModel.UiState.Display -> displayCompanyData(state)
+                is CompanyViewModel.UiState.Error -> displayError(state.errorRes)
+                is CompanyViewModel.UiState.Loading -> displayProgress()
             }
         }
         launchesViewModel.state.observe(viewLifecycleOwner) { state ->
@@ -53,7 +53,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun displayCompanyData(state: CompanyInfoViewModel.UiState.Display) {
+    private fun displayCompanyData(state: CompanyViewModel.UiState.Display) {
         val company = state.company
         binding.tv.text = getString(
             R.string.company_description_template,

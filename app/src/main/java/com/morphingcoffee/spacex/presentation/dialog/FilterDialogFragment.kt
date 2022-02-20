@@ -1,4 +1,4 @@
-package com.morphingcoffee.spacex.presentation
+package com.morphingcoffee.spacex.presentation.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,16 +25,15 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.btnSortAscending.setOnClickListener { handleSortingChoice(SortingOption.Ascending) }
-        binding.btnSortDescending.setOnClickListener { handleSortingChoice(SortingOption.Descending) }
-        binding.btnLaunchStatusAll.setOnClickListener { handleStatusFilteringChoice(null) }
-        binding.btnLaunchStatusSuccessful.setOnClickListener {
-            handleStatusFilteringChoice(
-                LaunchStatus.Successful
-            )
+        binding.apply {
+            btnSortAscending.setOnClickListener { handleSortingChoice(SortingOption.Ascending) }
+            btnSortDescending.setOnClickListener { handleSortingChoice(SortingOption.Descending) }
+            btnLaunchStatusAll.setOnClickListener { handleStatusFilteringChoice(null) }
+            btnLaunchStatusSuccessful.setOnClickListener {
+                handleStatusFilteringChoice(LaunchStatus.Successful)
+            }
+            btnLaunchStatusFailed.setOnClickListener { handleStatusFilteringChoice(LaunchStatus.Failed) }
         }
-        binding.btnLaunchStatusFailed.setOnClickListener { handleStatusFilteringChoice(LaunchStatus.Failed) }
     }
 
     private fun handleSortingChoice(choice: SortingOption) {

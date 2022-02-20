@@ -18,7 +18,7 @@ import com.morphingcoffee.spacex.domain.usecase.IGetCompanyUseCase
 import com.morphingcoffee.spacex.domain.usecase.IGetLaunchesUseCase
 import com.morphingcoffee.spacex.domain.usecase.impl.GetCompanyUseCase
 import com.morphingcoffee.spacex.domain.usecase.impl.GetLaunchesUseCase
-import com.morphingcoffee.spacex.presentation.CompanyInfoViewModel
+import com.morphingcoffee.spacex.presentation.CompanyViewModel
 import com.morphingcoffee.spacex.presentation.LaunchesViewModel
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesDiffUtilCallback
@@ -39,7 +39,7 @@ class KoinModules {
         private const val DB_IDENTIFIER = "spacex_app_db"
 
         private fun presentationModule(): Module = module {
-            viewModel { CompanyInfoViewModel(get()) }
+            viewModel { CompanyViewModel(get()) }
             viewModel { LaunchesViewModel(get()) }
 
             factory<LaunchesAdapter> { LaunchesAdapter(get(), get(), get(), get()) }

@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CompanyInfoViewModel(
+class CompanyViewModel(
     private val getCompanyUseCase: IGetCompanyUseCase,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ) : ViewModel() {
@@ -32,7 +32,7 @@ class CompanyInfoViewModel(
     init {
         viewModelScope.launch(defaultDispatcher) {
             getCompanyUseCase.execute().also(
-                this@CompanyInfoViewModel::handleCompanyResult
+                this@CompanyViewModel::handleCompanyResult
             )
         }
     }
