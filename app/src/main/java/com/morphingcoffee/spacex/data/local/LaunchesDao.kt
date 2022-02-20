@@ -6,34 +6,6 @@ import com.morphingcoffee.spacex.data.local.model.LaunchEntity
 @Dao
 interface LaunchesDao {
     /**
-     * Get all entries sorted by preferred [sortAscending] flag.
-     * Optional [launchStatusCriteria] can be passed to apply filtering based on launch status:
-     *  - when null is passed, there is no filtering applied
-     *  - when true is passed, only successful launches are returned
-     *  - when false is passed, only failed launches are returned
-     **/
-    @Query(
-        """SELECT * FROM launches
-                 WHERE
-                    CASE
-                        WHEN :launchStatusCriteria = 1 THEN success = 1
-                        WHEN :launchStatusCriteria = 0 THEN success = 0
-                        ELSE 1=1
-                    END
-                 AND 1=1 OR :launchYearCriteria = :launchYearCriteria
-                 ORDER BY
-                   CASE WHEN :sortAscending = 1 THEN dateUnix END ASC,
-                   CASE WHEN :sortAscending = 0 THEN dateUnix END DESC
-              """
-    )
-    // FIXME ^ launchYearCriteria is a placeholder
-    fun getAllWithMatchingCriteria(
-        sortAscending: Boolean,
-        launchStatusCriteria: Boolean?,
-        launchYearCriteria: Int?
-    ): List<LaunchEntity>?
-
-    /**
      * Purge DB and insert provided [launches].
      *
      * This Delete + InsertAll transaction is created to be used for fully replacing the DB
@@ -48,6 +20,36 @@ interface LaunchesDao {
         deleteAll()
         insertAll(launches)
     }
+
+    /**
+     * Get all entries sorted by preferred [sortAscending] flag.
+     * Optional [launchStatusCriteria] can be passed to apply filtering based on launch status:
+     *  - when null is passed, there is no filtering applied
+     *  - when true is passed, only successful launches are returned
+     *  - when false is passed, only failed launches are returned
+     **/
+    @Query(
+        """SELECT * FROM launches
+                 WHERE
+                    CASE
+                        WHEN :launchStatusCriteria IS NULL THEN 1
+                        ELSE success = :launchStatusCriteria
+                    END
+                 AND
+                    CASE
+                        WHEN :launchYearCriteria IS NULL THEN 1
+                        ELSE year = :launchYearCriteria
+                    END
+                 ORDER BY
+                   CASE WHEN :sortAscending = 1 THEN dateUnix END ASC,
+                   CASE WHEN :sortAscending = 0 THEN dateUnix END DESC
+              """
+    )
+    fun getAllWithMatchingCriteria(
+        sortAscending: Boolean,
+        launchStatusCriteria: Boolean?,
+        launchYearCriteria: Int?
+    ): List<LaunchEntity>?
 
     @Query("DELETE FROM launches")
     fun deleteAll()
