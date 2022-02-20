@@ -16,12 +16,10 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="SpaceX was founded by Elon Musk in 2022. It has now 9500 employees, 3 launch sites, and is values at USD $74...000" />
 
-    <ScrollView
-        android:id="@+id/sv"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="false"
-        android:paddingTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +31,7 @@
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
