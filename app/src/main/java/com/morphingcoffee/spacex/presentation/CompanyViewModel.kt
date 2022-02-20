@@ -22,9 +22,6 @@ class CompanyViewModel(
         data class Error(val errorRes: Int) : UiState
     }
 
-    // TODO
-    sealed interface UserAction {}
-
     private val _state: MutableLiveData<UiState> = MutableLiveData(UiState.Loading)
     val state: LiveData<UiState>
         get() = _state

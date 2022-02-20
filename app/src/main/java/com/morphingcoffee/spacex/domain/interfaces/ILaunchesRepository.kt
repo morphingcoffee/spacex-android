@@ -5,9 +5,13 @@ import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.SortingOption
 
 interface ILaunchesRepository {
-    /** Retrieve launches matching [filterOptions] requirements and sorted by [sortingOption] strategy **/
-    suspend fun getLaunches(
+    /** Retrieve launches matching [filterStatusOption] & [filterYearOption] requirements
+     * and sorted by [sortingOption] strategy.
+     * Passing null to [filterStatusOption] and [filterYearOption] disables corresponding filtering.
+     **/
+    suspend fun getAllLaunches(
         sortingOption: SortingOption,
-        filterOptions: List<FilteringOption>
+        filterStatusOption: FilteringOption.ByLaunchStatus?,
+        filterYearOption: FilteringOption.ByYear?,
     ): List<Launch>
 }

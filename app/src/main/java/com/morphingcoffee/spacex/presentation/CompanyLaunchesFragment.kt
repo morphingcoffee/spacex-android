@@ -10,6 +10,7 @@ import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.FragmentMainBinding
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -19,7 +20,7 @@ class CompanyLaunchesFragment : Fragment() {
     private val adapter: LaunchesAdapter by inject()
 
     private val companyViewModel: CompanyViewModel by viewModel()
-    private val launchesViewModel: LaunchesViewModel by viewModel()
+    private val launchesViewModel: LaunchesViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +45,7 @@ class CompanyLaunchesFragment : Fragment() {
                 is CompanyViewModel.UiState.Loading -> displayProgress()
             }
         }
-        launchesViewModel.state.observe(viewLifecycleOwner) { state ->
+        launchesViewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is LaunchesViewModel.UiState.Display -> displayLaunchesData(state)
                 is LaunchesViewModel.UiState.Error -> displayError(state.errorRes)

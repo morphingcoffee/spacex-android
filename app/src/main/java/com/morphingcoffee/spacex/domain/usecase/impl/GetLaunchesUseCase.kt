@@ -14,10 +14,17 @@ class GetLaunchesUseCase(private val launchesRepository: ILaunchesRepository) :
     IGetLaunchesUseCase {
     override suspend fun execute(
         sortingOption: SortingOption,
-        filterOptions: List<FilteringOption>
+        filterStatusOption: FilteringOption.ByLaunchStatus?,
+        filterYearOption: FilteringOption.ByYear?
     ): Result {
         return try {
-            return Result.Success(launchesRepository.getLaunches(sortingOption, filterOptions))
+            return Result.Success(
+                launchesRepository.getAllLaunches(
+                    sortingOption,
+                    filterStatusOption,
+                    filterYearOption
+                )
+            )
         } catch (e: Exception) {
             Result.Error(e)
         }

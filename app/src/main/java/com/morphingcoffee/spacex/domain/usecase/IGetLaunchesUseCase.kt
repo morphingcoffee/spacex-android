@@ -11,15 +11,17 @@ interface IGetLaunchesUseCase {
     /**
      * Retrieve the list of launches.
      * If [sortingOption] is not supplied, items are ordered from newest to oldest (descending) by default
-     * If [filterOptions] is not supplied, no launches filtering is applied
+     * If [filterStatusOption] & [filterYearOption] are not supplied, no launches filtering is applied.
      **/
     suspend fun execute(
         sortingOption: SortingOption = SortingOption.Descending,
-        filterOptions: List<FilteringOption> = listOf()
+        filterStatusOption: FilteringOption.ByLaunchStatus? = null,
+        filterYearOption: FilteringOption.ByYear? = null
     ): Result
 
     sealed interface Result {
         data class Success(val launches: List<Launch>) : Result
+
         data class Error(val t: Throwable) : Result
     }
 }
