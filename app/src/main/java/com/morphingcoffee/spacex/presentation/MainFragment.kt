@@ -12,6 +12,7 @@ import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding

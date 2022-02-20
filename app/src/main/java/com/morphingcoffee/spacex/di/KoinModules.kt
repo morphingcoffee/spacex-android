@@ -98,11 +98,6 @@ class KoinModules {
             }
         }
 
-        // TODO decide if UseCases should simply be part of domain
-//        private fun useCaseModule(): Module = module { }
-        // TODO consider if more layers would be beneficial
-        //private fun frameworkModule(): Module = module { }
-
         fun all(): List<Module> =
             presentationModule() + domainModule() + repositoryModule() + dataModule()
     }

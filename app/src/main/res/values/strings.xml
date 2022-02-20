@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">SpaceX</string>
+
+    <!-- Actions -->
+    <string name="action_filter">Filter</string>
+
     <!--  Main Screen  -->
     <string name="company_description_template">%1$s was founded by %2$s in %3$d. It has now %4$d employees, %5$d launch sites, and is valued at USD %6$d</string>
 
@@ -11,11 +15,22 @@
     <string name="launch_heading_rocket">Rocket:</string>
     <string name="launch_heading_days_since">Days from now:</string>
     <string name="launch_rocket_field_template">%1$s / %2$s</string>
-    <string name="unknown_value_field">unknown</string>
+
+    <!--  Sorting & Filtering  -->
+    <string name="sorting_order">Sorting Order</string>
+    <string name="filter_by_launch_status">Launch Status</string>
+    <string name="filter_by_launch_all">Successful, Failed &amp; Future Launches</string>
+    <string name="filter_by_launch_successful">Only Successful Launches</string>
+    <string name="filter_by_launch_failed">Only Failed Launches</string>
+    <string name="sort_ascending">Oldest to newest</string>
+    <string name="sort_descending">Newest to oldest</string>
 
     <!--  Errors  -->
     <string name="unknown_error_message">Something went wrong. Please try again</string>
+
     <!--  Other  -->
     <string name="loading">Loading…</string>
     <string name="blank" />
+    <string name="unknown_value_field">unknown</string>
+
 </resources>

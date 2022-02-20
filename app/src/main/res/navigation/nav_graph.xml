@@ -7,6 +7,10 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.morphingcoffee.spacex.presentation.MainFragment"
-        android:label="MainFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_main" />
+    <dialog
+        android:id="@+id/dialog_filter_overlay"
+        android:name="com.morphingcoffee.spacex.presentation.FilterDialogFragment"
         tools:layout="@layout/fragment_main" />
 </navigation>
