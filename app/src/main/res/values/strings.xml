@@ -33,6 +33,14 @@
     <string name="sort_ascending">Oldest to newest</string>
     <string name="sort_descending">Newest to oldest</string>
 
+    <!--  Links  -->
+    <string name="links_heading">Links</string>
+    <string name="links_webcast">Webcast</string>
+    <string name="links_article">Article</string>
+    <string name="links_wiki">Wiki</string>
+    <string name="links_none_available">No Links Available</string>
+    <string name="links_image_content_description">Opens in another window</string>
+
     <!--  Errors  -->
     <string name="unknown_error_message">Could not get the latest data. Check connection &amp; try again</string>
     <string name="swipe_down_to_refresh">No launches with matching criteria\nSwipe down to refresh</string>

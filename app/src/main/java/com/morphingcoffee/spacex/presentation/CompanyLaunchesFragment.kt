@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.FragmentMainBinding
+import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -22,12 +24,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * fragment, so the sorting & filtering is handled there.
  **/
 class CompanyLaunchesFragment : Fragment() {
-
     private lateinit var binding: FragmentMainBinding
     private val adapter: LaunchesAdapter by inject()
 
     private val companyViewModel: CompanyViewModel by viewModel()
     private val launchesViewModel: LaunchesViewModel by sharedViewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        adapter.setOnLaunchSelectedListener { onLaunchClicked(it) }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +80,16 @@ class CompanyLaunchesFragment : Fragment() {
                 LaunchesViewModel.UiState.Loading -> displayProgress()
             }
         }
+    }
+
+    private fun onLaunchClicked(launch: Launch) {
+        val links = launch.links
+        val action = CompanyLaunchesFragmentDirections.actionMainFragmentToDialogOpenLinks(
+            links?.webcastURL,
+            links?.wikiURL,
+            links?.articleURL
+        )
+        findNavController().navigate(action)
     }
 
     private fun requestDataRefresh() {

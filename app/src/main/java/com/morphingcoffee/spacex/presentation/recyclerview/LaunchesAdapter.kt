@@ -21,7 +21,18 @@ class LaunchesAdapter(
     asyncDifferConfig: AsyncDifferConfig<Launch>
 ) : ListAdapter<Launch, LaunchesAdapter.ViewHolder>(asyncDifferConfig) {
 
+    private var onClickListener: OnLaunchSelectedListener? = null
+
     class ViewHolder(val binding: LaunchRowItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+    /** For delegating onclick action events **/
+    fun interface OnLaunchSelectedListener {
+        fun invoke(launch: Launch)
+    }
+
+    fun setOnLaunchSelectedListener(listener: OnLaunchSelectedListener?) {
+        onClickListener = listener
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -48,6 +59,9 @@ class LaunchesAdapter(
                 )
             // TODO
             //binding.daysSinceFromNow.text = item.launchDateTime ?: unknownFieldString
+
+            // Click listeners
+            binding.root.setOnClickListener { onClickListener?.invoke(getItem(position)) }
 
             // Bind rocket data field
             val rocketName = item?.rocket?.name ?: unknownFieldString

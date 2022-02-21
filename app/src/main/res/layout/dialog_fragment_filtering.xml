@@ -217,9 +217,7 @@
             android:src="@drawable/close"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/year_filter_edit_text"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </ImageButton>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
