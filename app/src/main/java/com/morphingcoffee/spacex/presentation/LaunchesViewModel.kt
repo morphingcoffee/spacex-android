@@ -29,7 +29,7 @@ class LaunchesViewModel(
     }
 
     sealed interface UserAction {
-        object FullDataRefresh : UserAction
+        object Refresh : UserAction
         data class SelectSortingPreference(
             val sortingOption: SortingOption,
         ) : UserAction
@@ -56,18 +56,21 @@ class LaunchesViewModel(
 
     init {
         // Auto-fetch all records on start
-        handleUserAction(UserAction.FullDataRefresh)
+        handleUserAction(UserAction.Refresh)
     }
 
     fun handleUserAction(action: UserAction) {
         when (action) {
             is UserAction.SelectSortingPreference -> _sortingPreference.value = action.sortingOption
-            UserAction.FullDataRefresh -> {
-            }
+            UserAction.Refresh -> {}
             is UserAction.SelectStatusFilteringPreference -> {
                 _filterStatusPreference.value = action.filteringOption
             }
         }
+        fetchData()
+    }
+
+    private fun fetchData() {
         viewModelScope.launch(defaultDispatcher) {
             getLaunchesUseCase.execute(
                 _sortingPreference.value!!,
@@ -82,9 +85,7 @@ class LaunchesViewModel(
     private fun handleLaunchesResult(result: IGetLaunchesUseCase.Result) {
         when (result) {
             is IGetLaunchesUseCase.Result.Error -> _uiState.postValue(UiState.Error(R.string.unknown_error_message))
-            is IGetLaunchesUseCase.Result.Success -> _uiState.postValue(
-                UiState.Display(result.launches)
-            )
+            is IGetLaunchesUseCase.Result.Success -> _uiState.postValue(UiState.Display(result.launches))
         }
     }
 }

@@ -22,11 +22,26 @@ class CompanyViewModel(
         data class Error(val errorRes: Int) : UiState
     }
 
+    sealed interface UserAction {
+        object Refresh : UserAction
+    }
+
     private val _state: MutableLiveData<UiState> = MutableLiveData(UiState.Loading)
     val state: LiveData<UiState>
         get() = _state
 
     init {
+        // Auto-fetch record on start
+        fetchData()
+    }
+
+    fun handleUserAction(action: UserAction) {
+        when (action) {
+            UserAction.Refresh -> fetchData()
+        }
+    }
+
+    private fun fetchData() {
         viewModelScope.launch(defaultDispatcher) {
             getCompanyUseCase.execute().also(
                 this@CompanyViewModel::handleCompanyResult

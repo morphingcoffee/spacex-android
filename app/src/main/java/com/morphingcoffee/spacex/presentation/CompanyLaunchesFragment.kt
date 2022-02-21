@@ -45,7 +45,7 @@ class CompanyLaunchesFragment : Fragment() {
     private fun onBindingReady() {
         binding.apply {
             recyclerView.adapter = adapter
-            swiperefresh.setOnRefreshListener { requestDataRefresh() }
+            swipeRefresh.setOnRefreshListener { requestDataRefresh() }
         }
     }
 
@@ -67,7 +67,8 @@ class CompanyLaunchesFragment : Fragment() {
     }
 
     private fun requestDataRefresh() {
-        launchesViewModel.handleUserAction(LaunchesViewModel.UserAction.FullDataRefresh)
+        launchesViewModel.handleUserAction(LaunchesViewModel.UserAction.Refresh)
+        companyViewModel.handleUserAction(CompanyViewModel.UserAction.Refresh)
     }
 
     private fun displayCompanyData(state: CompanyViewModel.UiState.Display) {
@@ -85,21 +86,32 @@ class CompanyLaunchesFragment : Fragment() {
 
     private fun displayLaunchesData(state: LaunchesViewModel.UiState.Display) {
         // Update RecyclerView
-        adapter.submitList(state.launches)
-        binding.swiperefresh.isRefreshing = false
-        // Todo make it scroll to the top?
-        //binding.recyclerView.layoutManager!!.scrollToPosition(0)
+        with(binding) {
+            adapter.submitList(state.launches) { recyclerView.scrollToPosition(0) }
+            swipeRefresh.isRefreshing = false
+            if (state.launches.isEmpty()) {
+                informationalTv.text = getString(R.string.swipe_down_to_refresh)
+            } else {
+                informationalTv.text = getString(R.string.blank)
+            }
+        }
     }
 
     private fun displayProgress() {
-        binding.tv.text = getString(R.string.loading)
-        binding.swiperefresh.isRefreshing = true
+        with(binding) {
+            tv.text = getString(R.string.loading)
+            informationalTv.text = getString(R.string.blank)
+            swipeRefresh.isRefreshing = true
+        }
     }
 
     private fun displayError(errorRes: Int) {
-        binding.tv.text = getString(R.string.blank)
-        binding.swiperefresh.isRefreshing = false
-        Toast.makeText(requireContext(), getString(errorRes), Toast.LENGTH_SHORT).show()
+        with(binding) {
+            tv.text = getString(R.string.blank)
+            informationalTv.text = getString(R.string.swipe_down_to_refresh)
+            swipeRefresh.isRefreshing = false
+        }
+        Toast.makeText(requireContext(), getString(errorRes), Toast.LENGTH_LONG).show()
     }
 
 }
