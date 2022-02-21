@@ -19,7 +19,7 @@
     <!--  Sorting & Filtering  -->
     <string name="sorting_order">Sorting Order</string>
     <string name="filter_by_launch_status">Launch Status</string>
-    <string name="filter_by_launch_all">Successful, Failed &amp; Future Launches</string>
+    <string name="filter_by_launch_all">All Launches</string>
     <string name="filter_by_launch_successful">Only Successful Launches</string>
     <string name="filter_by_launch_failed">Only Failed Launches</string>
     <string name="sort_ascending">Oldest to newest</string>

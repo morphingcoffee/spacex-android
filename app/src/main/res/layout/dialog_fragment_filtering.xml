@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="RtlSymmetry">
 
     <TextView
         android:id="@+id/heading_sorting"
@@ -15,18 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--  TODO remove  -->
-    <View
-        android:id="@+id/hr1"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="#00000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/heading_sorting"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.5" />
-
     <LinearLayout
         android:id="@+id/btn_sort_ascending"
         style="@style/Clickable"
@@ -35,13 +25,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hr1">
+        app:layout_constraintTop_toBottomOf="@id/heading_sorting">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center"
+            android:gravity="end"
+            android:paddingEnd="@dimen/radio_button_text_gap"
             android:text="@string/sort_ascending" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -66,7 +57,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center"
+            android:gravity="end"
+            android:paddingEnd="@dimen/radio_button_text_gap"
             android:text="@string/sort_descending" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -88,18 +80,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_sort_descending" />
 
-    <!--  TODO remove  -->
-    <View
-        android:id="@+id/hr2"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="#00000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/heading_filtering"
-        app:layout_constraintWidth_default="percent"
-        app:layout_constraintWidth_percent="0.5" />
-
     <LinearLayout
         android:id="@+id/btn_launch_status_all"
         style="@style/Clickable"
@@ -108,13 +88,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/hr2">
+        app:layout_constraintTop_toBottomOf="@id/heading_filtering">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center"
+            android:gravity="end"
+            android:paddingEnd="@dimen/radio_button_text_gap"
             android:text="@string/filter_by_launch_all" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -140,7 +121,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center"
+            android:gravity="end"
+            android:paddingEnd="@dimen/radio_button_text_gap"
             android:text="@string/filter_by_launch_successful" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -165,7 +147,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center"
+            android:gravity="end"
+            android:paddingEnd="@dimen/radio_button_text_gap"
             android:text="@string/filter_by_launch_failed" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
