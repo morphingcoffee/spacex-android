@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.FragmentMainBinding
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 /**
  * Main screen of the app where the user sees the Company info and the list of launches.
@@ -43,8 +45,16 @@ class CompanyLaunchesFragment : Fragment() {
     }
 
     private fun onBindingReady() {
-        binding.apply {
-            recyclerView.adapter = adapter
+        with(binding) {
+            recyclerView.apply {
+                adapter = this@CompanyLaunchesFragment.adapter
+                addItemDecoration(
+                    DividerItemDecoration(
+                        requireContext(),
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
+            }
             swipeRefresh.setOnRefreshListener { requestDataRefresh() }
         }
     }
