@@ -171,7 +171,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_year_filter"
-        style="@style/Clickable"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
