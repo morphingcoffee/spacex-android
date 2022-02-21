@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceX">
         <activity
-            android:name=".MainActivity"
+            android:name=".NavHostActivity"
             android:exported="true"
             android:screenOrientation="userPortrait"
             tools:ignore="LockedOrientationActivity">
