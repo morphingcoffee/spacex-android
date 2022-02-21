@@ -27,6 +27,9 @@ interface LaunchesDao {
      *  - when null is passed, there is no filtering applied
      *  - when true is passed, only successful launches are returned
      *  - when false is passed, only failed launches are returned
+     * Optional [launchYearCriteria] can be passed to apply filtering based on launch year:
+     *  - when null is passed, there is no filtering applied
+     *  - when a number is passed, only launches executed/planned for that year are returned
      **/
     @Query(
         """SELECT * FROM launches
