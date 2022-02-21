@@ -1,4 +1,4 @@
-package com.morphingcoffee.spacex.repository.model
+package com.morphingcoffee.spacex.repository.caching
 
 /**
  * [LaunchesCachingConfig] defines a policy of minimum time to elapse before fetching data from

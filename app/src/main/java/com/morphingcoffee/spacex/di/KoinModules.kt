@@ -23,9 +23,9 @@ import com.morphingcoffee.spacex.presentation.LaunchesViewModel
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesDiffUtilCallback
 import com.morphingcoffee.spacex.repository.CompanyRepository
-import com.morphingcoffee.spacex.repository.ICurrentUnixTimeProvider
+import com.morphingcoffee.spacex.repository.caching.ICurrentUnixTimeProvider
 import com.morphingcoffee.spacex.repository.LaunchesRepository
-import com.morphingcoffee.spacex.repository.model.LaunchesCachingConfig
+import com.morphingcoffee.spacex.repository.caching.LaunchesCachingConfig
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -9,7 +9,8 @@ import com.morphingcoffee.spacex.domain.model.FilteringOption
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
 import com.morphingcoffee.spacex.domain.model.SortingOption
-import com.morphingcoffee.spacex.repository.model.LaunchesCachingConfig
+import com.morphingcoffee.spacex.repository.caching.ICurrentUnixTimeProvider
+import com.morphingcoffee.spacex.repository.caching.LaunchesCachingConfig
 import java.net.UnknownHostException
 import java.time.LocalDateTime
 import java.time.ZoneOffset
