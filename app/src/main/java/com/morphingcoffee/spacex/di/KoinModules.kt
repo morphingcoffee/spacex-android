@@ -22,8 +22,8 @@ import com.morphingcoffee.spacex.presentation.CompanyViewModel
 import com.morphingcoffee.spacex.presentation.LaunchesViewModel
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesDiffUtilCallback
+import com.morphingcoffee.spacex.presentation.time.ICurrentUnixTimeProvider
 import com.morphingcoffee.spacex.repository.CompanyRepository
-import com.morphingcoffee.spacex.repository.caching.ICurrentUnixTimeProvider
 import com.morphingcoffee.spacex.repository.LaunchesRepository
 import com.morphingcoffee.spacex.repository.caching.LaunchesCachingConfig
 import com.squareup.moshi.Moshi
@@ -47,7 +47,9 @@ class KoinModules {
             viewModel { CompanyViewModel(get()) }
             viewModel { LaunchesViewModel(get()) }
 
-            factory<LaunchesAdapter> { LaunchesAdapter(get(), get(), get(), get()) }
+            factory<ICurrentUnixTimeProvider> { ICurrentUnixTimeProvider { System.currentTimeMillis() } }
+
+            factory<LaunchesAdapter> { LaunchesAdapter(get(), get(), get(), get(), get()) }
             factory<DiffUtil.ItemCallback<Launch>> { LaunchesDiffUtilCallback() }
             factory<AsyncDifferConfig<Launch>> { AsyncDifferConfig.Builder<Launch>(get()).build() }
             factory<ImageRequest.Builder> { ImageRequest.Builder(get<Context>()) }
@@ -70,7 +72,7 @@ class KoinModules {
             factory<LaunchesCachingConfig> { LaunchesCachingConfig(launchesCacheValidityInMillis = LAUNCHES_CACHE_VALIDITY_IN_MILLIS) }
             factory<ICompanyRepository> { CompanyRepository(get(), get()) }
             factory<ILaunchesRepository> { LaunchesRepository(get(), get(), get(), get()) }
-            factory<ICurrentUnixTimeProvider> { ICurrentUnixTimeProvider { System.currentTimeMillis() } }
+            factory<com.morphingcoffee.spacex.repository.caching.ICurrentUnixTimeProvider> { com.morphingcoffee.spacex.repository.caching.ICurrentUnixTimeProvider { System.currentTimeMillis() } }
         }
 
         private fun dataModule(): Module = module {

@@ -16,7 +16,11 @@
     <string name="launch_heading_date">Date/time:</string>
     <string name="launch_field_date_template">%1$s-%2$s-%3$s at %4$s:%5$s</string>
     <string name="launch_heading_rocket">Rocket:</string>
-    <string name="launch_heading_days_since">Days from now:</string>
+    <string name="launch_heading_days_since">since</string>
+    <string name="launch_heading_days_from">from</string>
+    <string name="launch_heading_days_template">Days %1$s now:</string>
+    <string name="launch_days_until_field_template">in %1$d %2$s</string>
+    <string name="launch_days_since_field_template">%1$d %2$s ago</string>
     <string name="launch_rocket_field_template">%1$s / %2$s</string>
 
     <!--  Sorting & Filtering  -->
