@@ -34,8 +34,14 @@ class LaunchesViewModel(
             val sortingOption: SortingOption,
         ) : UserAction
 
+        /** null [filteringOption] disables the filter **/
         data class SelectStatusFilteringPreference(
             val filteringOption: FilteringOption.ByLaunchStatus?,
+        ) : UserAction
+
+        /** null [filteringOption] disables the filter **/
+        data class SelectYearFilteringPreference(
+            val filteringOption: FilteringOption.ByYear?,
         ) : UserAction
     }
 
@@ -66,6 +72,8 @@ class LaunchesViewModel(
             is UserAction.SelectStatusFilteringPreference -> {
                 _filterStatusPreference.value = action.filteringOption
             }
+            is UserAction.SelectYearFilteringPreference -> _filterYearPreference.value =
+                action.filteringOption
         }
         fetchData()
     }

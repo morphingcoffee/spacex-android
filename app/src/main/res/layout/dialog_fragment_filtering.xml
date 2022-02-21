@@ -11,7 +11,7 @@
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:text="@string/sorting_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="8dp"
         android:text="@string/filter_by_launch_status"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +105,6 @@
             android:layout_weight="1"
             android:clickable="false" />
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/btn_launch_status_successful"
@@ -158,5 +157,69 @@
             android:layout_weight="1"
             android:clickable="false" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/heading_years"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/filter_by_year_heading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_launch_status_failed" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btn_year_filter"
+        style="@style/Clickable"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heading_years">
+
+        <TextView
+            android:id="@+id/year_filter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:text="@string/filter_by_year"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/year_filter_edit_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <EditText
+            android:id="@+id/year_filter_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:digits="0123456789"
+            android:gravity="center"
+            android:hint="@string/filter_by_year_hint"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            android:maxLength="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.45" />
+
+        <ImageButton
+            android:id="@+id/year_filter_clear_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/filter_by_year_clear_content_description"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/year_filter_edit_text"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageButton>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

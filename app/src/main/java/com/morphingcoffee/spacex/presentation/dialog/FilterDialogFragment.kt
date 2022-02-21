@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import android.widget.RadioButton
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.morphingcoffee.spacex.databinding.DialogFragmentFilteringBinding
@@ -29,7 +30,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.apply {
+        with(binding) {
             btnSortAscending.setOnClickListener { chooseSortingAction(SortingOption.Ascending) }
             btnSortDescending.setOnClickListener { chooseSortingAction(SortingOption.Descending) }
             btnLaunchStatusAll.setOnClickListener { chooseStatusFilteringAction(null) }
@@ -39,13 +40,27 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
             btnLaunchStatusFailed.setOnClickListener {
                 chooseStatusFilteringAction(FilteringOption.ByLaunchStatus(LaunchStatus.Failed))
             }
+            yearFilterClearButton.setOnClickListener { chooseYearFilteringAction(null) }
+            yearFilterEditText.setOnEditorActionListener { v, actionId, _ ->
+                if (actionId == IME_ACTION_SEARCH) {
+                    val year = v.text.toString().toIntOrNull()
+                    chooseYearFilteringAction(year)
+                    dismiss()
+                    true
+                } else {
+                    false
+                }
+            }
         }
-        // Setup LiveData observers. Used for updating radio buttons.
+        // Setup LiveData observers. Used for updating radio buttons & Edit text fields
         launchesViewModel.sortingPreference.observe(viewLifecycleOwner) { option ->
             handleSortingChoice(option)
         }
         launchesViewModel.filterStatusPreference.observe(viewLifecycleOwner) { option ->
             handleStatusFilteringChoice(option)
+        }
+        launchesViewModel.filterYearPreference.observe(viewLifecycleOwner) { option ->
+            handleYearFilteringChoice(option)
         }
     }
 
@@ -82,6 +97,17 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+    private fun handleYearFilteringChoice(choice: FilteringOption.ByYear?) {
+        when (choice) {
+            null -> {
+                binding.yearFilterEditText.text.clear()
+            }
+            else -> {
+                binding.yearFilterEditText.setText(choice.year.toString())
+            }
+        }
+    }
+
     private fun chooseSortingAction(choice: SortingOption) {
         launchesViewModel.handleUserAction(
             LaunchesViewModel.UserAction.SelectSortingPreference(choice)
@@ -91,6 +117,13 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
     private fun chooseStatusFilteringAction(choice: FilteringOption.ByLaunchStatus?) {
         launchesViewModel.handleUserAction(
             LaunchesViewModel.UserAction.SelectStatusFilteringPreference(choice)
+        )
+    }
+
+    private fun chooseYearFilteringAction(year: Int?) {
+        val choice = if (year == null) null else FilteringOption.ByYear(year)
+        launchesViewModel.handleUserAction(
+            LaunchesViewModel.UserAction.SelectYearFilteringPreference(choice)
         )
     }
 
