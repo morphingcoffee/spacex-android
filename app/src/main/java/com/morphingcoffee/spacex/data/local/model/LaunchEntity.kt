@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.morphingcoffee.spacex.data.remote.model.DateTimeDto
+import com.morphingcoffee.spacex.data.remote.model.toDomainModel
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
 
@@ -24,6 +26,7 @@ data class LaunchEntity(
 )
 
 fun LaunchEntity.toDomainModel(): Launch {
+    val dateTime = DateTimeDto(unixDate = dateUnix).toDomainModel()
     val status = when (success) {
         true -> LaunchStatus.Successful
         false -> LaunchStatus.Failed
@@ -32,7 +35,7 @@ fun LaunchEntity.toDomainModel(): Launch {
     return Launch(
         id = uid,
         name = name,
-        launchDateTime = dateUtc,
+        launchDateTime = dateTime,
         launchStatus = status,
         rocket = rocket?.toDomainModel(),
         links = links?.toDomainModel(),

@@ -36,8 +36,18 @@ class LaunchesAdapter(
         with(holder) {
             // Bind data
             binding.title.text = item.name
-            binding.dateAtTime.text = item.launchDateTime ?: unknownFieldString
-            binding.daysSinceFromNow.text = item.launchDateTime ?: unknownFieldString
+            binding.dateAtTime.text =
+                if (item.launchDateTime == null) context.getString(R.string.blank)
+                else context.getString(
+                    R.string.launch_field_date_template,
+                    item.launchDateTime.year.toString(),
+                    item.launchDateTime.month.toString().padStart(2, padChar = '0'),
+                    item.launchDateTime.day.toString().padStart(2, padChar = '0'),
+                    item.launchDateTime.hour.toString().padStart(2, padChar = '0'),
+                    item.launchDateTime.minute.toString().padStart(2, padChar = '0')
+                )
+            // TODO
+            //binding.daysSinceFromNow.text = item.launchDateTime ?: unknownFieldString
 
             // Bind rocket data field
             val rocketName = item?.rocket?.name ?: unknownFieldString

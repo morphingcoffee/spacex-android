@@ -5,8 +5,6 @@ import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @JsonClass(generateAdapter = true)
 data class LaunchWithRocketDto(
@@ -21,6 +19,7 @@ data class LaunchWithRocketDto(
 )
 
 fun LaunchWithRocketDto.toDomainModel(): Launch {
+    val dateTime = DateTimeDto(unixDate = dateUnix).toDomainModel()
     val status = when (success) {
         true -> LaunchStatus.Successful
         false -> LaunchStatus.Failed
@@ -32,22 +31,18 @@ fun LaunchWithRocketDto.toDomainModel(): Launch {
         rocket = rocketDto?.toDomainModel(),
         links = linksDto?.toDomainModel(),
         launchStatus = status,
-        launchDateTime = dateUtc
+        launchDateTime = dateTime
     )
 }
 
 fun LaunchWithRocketDto.toEntity(): LaunchEntity {
-    val year = if (dateUnix != null) LocalDateTime.ofEpochSecond(
-        dateUnix,
-        0,
-        ZoneOffset.UTC
-    ).year else null
+    val dateTime = DateTimeDto(unixDate = dateUnix).toDomainModel()
     return LaunchEntity(
         uid = id,
         name = name,
         success = success,
         dateUtc = dateUtc,
-        year = year,
+        year = dateTime?.year,
         dateLocal = dateLocal,
         dateUnix = dateUnix,
         links = linksDto?.toEntity(),

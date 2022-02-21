@@ -12,6 +12,7 @@
     <string name="launch_status_icon_content_description">Mission launch status image</string>
     <string name="launch_heading_mission">Mission:</string>
     <string name="launch_heading_date">Date/time:</string>
+    <string name="launch_field_date_template">%1$s-%2$s-%3$s at %4$s:%5$s</string>
     <string name="launch_heading_rocket">Rocket:</string>
     <string name="launch_heading_days_since">Days from now:</string>
     <string name="launch_rocket_field_template">%1$s / %2$s</string>
