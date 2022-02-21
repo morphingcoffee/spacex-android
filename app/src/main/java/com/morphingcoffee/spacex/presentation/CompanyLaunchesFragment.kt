@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.FragmentMainBinding
 import com.morphingcoffee.spacex.domain.model.Launch
+import com.morphingcoffee.spacex.presentation.navigation.safeNavigate
 import com.morphingcoffee.spacex.presentation.recyclerview.LaunchesAdapter
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -89,7 +90,7 @@ class CompanyLaunchesFragment : Fragment() {
             links?.wikiURL,
             links?.articleURL
         )
-        findNavController().navigate(action)
+        findNavController().safeNavigate(action)
     }
 
     private fun requestDataRefresh() {

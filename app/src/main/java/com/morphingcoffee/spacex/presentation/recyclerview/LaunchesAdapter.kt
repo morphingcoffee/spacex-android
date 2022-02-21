@@ -61,7 +61,11 @@ class LaunchesAdapter(
             //binding.daysSinceFromNow.text = item.launchDateTime ?: unknownFieldString
 
             // Click listeners
-            binding.root.setOnClickListener { onClickListener?.invoke(getItem(position)) }
+            binding.root.setOnClickListener {
+                if (itemCount > position) {
+                    onClickListener?.invoke(getItem(position))
+                }
+            }
 
             // Bind rocket data field
             val rocketName = item?.rocket?.name ?: unknownFieldString
