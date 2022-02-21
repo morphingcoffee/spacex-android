@@ -5,16 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/heading_company"
+        style="@style/HeadingViewGroupTheme"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingHorizontal="@dimen/heading_horizontal_padding"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start|center_vertical"
+            android:text="@string/heading_company" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
+        android:id="@+id/company_description"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center"
+        android:gravity="start"
+        android:padding="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heading_company"
         tools:text="SpaceX was founded by Elon Musk in 2022. It has now 9500 employees, 3 launch sites, and is values at USD $74...000" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/heading_launches"
+        style="@style/HeadingViewGroupTheme"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:paddingHorizontal="@dimen/heading_horizontal_padding"
+        app:layout_constraintTop_toBottomOf="@id/company_description">
+
+        <TextView
+            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start|center_vertical"
+            android:text="@string/heading_launches" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
@@ -23,7 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv">
+        app:layout_constraintTop_toBottomOf="@id/heading_launches">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -36,14 +68,14 @@
 
     <TextView
         android:id="@+id/informational_tv"
+        style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        style="@style/TextAppearance.Material3.BodyLarge"
         android:text="@string/swipe_down_to_refresh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv" />
+        app:layout_constraintTop_toBottomOf="@id/company_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

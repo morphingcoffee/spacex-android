@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:gravity="end"
-        android:maxWidth="150dp"
+        android:maxWidth="@dimen/launch_field_max_width"
         app:layout_constraintEnd_toStartOf="@id/launchStatusIcon"
         app:layout_constraintTop_toTopOf="@id/header_mission"
         tools:text="Falcon 9 Test" />
@@ -51,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
+        android:maxWidth="@dimen/launch_field_max_width"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="@id/header_dateAtTime"
         tools:text="2010-06-04 at 18:45" />
@@ -68,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:maxWidth="150dp"
+        android:maxWidth="@dimen/launch_field_max_width"
         app:layout_constraintEnd_toEndOf="@+id/dateAtTime"
         app:layout_constraintTop_toTopOf="@id/header_rocket"
         tools:text="Falcon 9 / rocket" />
@@ -87,6 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
+        android:maxWidth="@dimen/launch_field_max_width"
         app:layout_constraintEnd_toEndOf="@+id/rocketNameType"
         app:layout_constraintTop_toTopOf="@id/header_daysSinceFromNow"
         tools:text="4383 days since now" />
@@ -97,7 +99,6 @@
         android:layout_height="48dp"
         android:layout_margin="16dp"
         android:contentDescription="@string/launch_icon_content_description"
-        android:maxWidth="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:background="@drawable/question_mark" />

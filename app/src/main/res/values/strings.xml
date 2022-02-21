@@ -6,6 +6,8 @@
 
     <!--  Main Screen  -->
     <string name="company_description_template">%1$s was founded by %2$s in %3$d. It has now %4$d employees, %5$d launch sites, and is valued at USD %6$d</string>
+    <string name="heading_company">COMPANY</string>
+    <string name="heading_launches">LAUNCHES</string>
 
     <!-- Launches list -->
     <string name="launch_icon_content_description">Mission launch patch image</string>

@@ -83,7 +83,7 @@ class CompanyLaunchesFragment : Fragment() {
 
     private fun displayCompanyData(state: CompanyViewModel.UiState.Display) {
         val company = state.company
-        binding.tv.text = getString(
+        binding.companyDescription.text = getString(
             R.string.company_description_template,
             company.companyName,
             company.founderName,
@@ -109,7 +109,7 @@ class CompanyLaunchesFragment : Fragment() {
 
     private fun displayProgress() {
         with(binding) {
-            tv.text = getString(R.string.loading)
+            companyDescription.text = getString(R.string.loading)
             informationalTv.text = getString(R.string.blank)
             swipeRefresh.isRefreshing = true
         }
@@ -117,7 +117,7 @@ class CompanyLaunchesFragment : Fragment() {
 
     private fun displayError(errorRes: Int) {
         with(binding) {
-            tv.text = getString(R.string.blank)
+            companyDescription.text = getString(R.string.blank)
             informationalTv.text = getString(R.string.swipe_down_to_refresh)
             swipeRefresh.isRefreshing = false
         }
