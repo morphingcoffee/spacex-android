@@ -13,6 +13,8 @@ import com.morphingcoffee.spacex.R
 import com.morphingcoffee.spacex.databinding.LaunchRowItemBinding
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 class LaunchesAdapter(
     private val context: Context,
@@ -44,18 +46,24 @@ class LaunchesAdapter(
         val item = getItem(position)
         val unknownFieldString = context.getString(R.string.unknown_value_field)
 
+        val dt = if (item.launchDateTime == null) null else LocalDateTime.ofEpochSecond(
+            item.launchDateTime.unixTimestamp,
+            0,
+            ZoneOffset.UTC
+        )
+
         with(holder) {
             // Bind data
             binding.title.text = item.name
             binding.dateAtTime.text =
-                if (item.launchDateTime == null) context.getString(R.string.blank)
+                if (dt == null) context.getString(R.string.blank)
                 else context.getString(
                     R.string.launch_field_date_template,
-                    item.launchDateTime.year.toString(),
-                    item.launchDateTime.month.toString().padStart(2, padChar = '0'),
-                    item.launchDateTime.day.toString().padStart(2, padChar = '0'),
-                    item.launchDateTime.hour.toString().padStart(2, padChar = '0'),
-                    item.launchDateTime.minute.toString().padStart(2, padChar = '0')
+                    dt.year.toString(),
+                    dt.monthValue.toString().padStart(2, padChar = '0'),
+                    dt.dayOfMonth.toString().padStart(2, padChar = '0'),
+                    dt.hour.toString().padStart(2, padChar = '0'),
+                    dt.minute.toString().padStart(2, padChar = '0')
                 )
             // TODO
             //binding.daysSinceFromNow.text = item.launchDateTime ?: unknownFieldString
