@@ -5,7 +5,7 @@ import com.morphingcoffee.spacex.data.local.model.toDomainModel
 import com.morphingcoffee.spacex.domain.model.DateTime
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
-import com.morphingcoffee.spacex.shared.fakes.FakeFailedLaunchEntity2015
+import shared.fakes.FakeFailedLaunchEntity2015
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

@@ -7,7 +7,6 @@ import com.morphingcoffee.spacex.data.remote.model.LaunchWithRocketDto
 import com.morphingcoffee.spacex.domain.model.*
 import com.morphingcoffee.spacex.repository.caching.ICurrentUnixTimeProvider
 import com.morphingcoffee.spacex.repository.caching.LaunchesCachingConfig
-import com.morphingcoffee.spacex.shared.fakes.*
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import junit.framework.TestCase.assertEquals
@@ -16,6 +15,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import shared.fakes.*
 import strikt.api.expectThat
 import strikt.assertions.get
 import strikt.assertions.isA
