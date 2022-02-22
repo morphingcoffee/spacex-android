@@ -5,10 +5,10 @@ import com.morphingcoffee.spacex.data.remote.model.RocketDto
 import com.morphingcoffee.spacex.data.remote.model.toDomainModel
 import com.morphingcoffee.spacex.data.remote.model.toEntity
 import com.morphingcoffee.spacex.domain.model.Rocket
-import com.morphingcoffee.spacex.shared.fakes.FakeRocketDto
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import shared.fakes.FakeRocketDto
 import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo

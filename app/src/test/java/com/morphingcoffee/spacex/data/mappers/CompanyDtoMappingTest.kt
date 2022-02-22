@@ -5,10 +5,10 @@ import com.morphingcoffee.spacex.data.remote.model.CompanyDto
 import com.morphingcoffee.spacex.data.remote.model.toDomainModel
 import com.morphingcoffee.spacex.data.remote.model.toEntity
 import com.morphingcoffee.spacex.domain.model.Company
-import com.morphingcoffee.spacex.shared.fakes.FakeCompanyDto
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import shared.fakes.FakeCompanyDto
 import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo

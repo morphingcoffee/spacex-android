@@ -3,10 +3,10 @@ package com.morphingcoffee.spacex.data.mappers
 import com.morphingcoffee.spacex.data.local.model.RocketEntity
 import com.morphingcoffee.spacex.data.local.model.toDomainModel
 import com.morphingcoffee.spacex.domain.model.Rocket
-import com.morphingcoffee.spacex.shared.fakes.FakeRocketEntity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import shared.fakes.FakeRocketEntity
 import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo

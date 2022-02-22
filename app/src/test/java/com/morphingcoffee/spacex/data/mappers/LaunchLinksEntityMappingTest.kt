@@ -4,10 +4,10 @@ import com.morphingcoffee.spacex.data.local.model.LaunchLinksEntity
 import com.morphingcoffee.spacex.data.local.model.toDomainModel
 import com.morphingcoffee.spacex.domain.model.Links
 import com.morphingcoffee.spacex.domain.model.PatchImage
-import com.morphingcoffee.spacex.shared.fakes.FakeLaunchLinksEntity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import shared.fakes.FakeLaunchLinksEntity
 import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo

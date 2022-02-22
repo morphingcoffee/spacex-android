@@ -7,10 +7,10 @@ import com.morphingcoffee.spacex.data.remote.model.toDomainModel
 import com.morphingcoffee.spacex.data.remote.model.toEntity
 import com.morphingcoffee.spacex.domain.model.Links
 import com.morphingcoffee.spacex.domain.model.PatchImage
-import com.morphingcoffee.spacex.shared.fakes.FakeLaunchLinksDto
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import shared.fakes.FakeLaunchLinksDto
 import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo

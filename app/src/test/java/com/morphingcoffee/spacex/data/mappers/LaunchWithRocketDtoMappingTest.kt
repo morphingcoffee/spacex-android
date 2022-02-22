@@ -7,10 +7,10 @@ import com.morphingcoffee.spacex.data.remote.model.toEntity
 import com.morphingcoffee.spacex.domain.model.DateTime
 import com.morphingcoffee.spacex.domain.model.Launch
 import com.morphingcoffee.spacex.domain.model.LaunchStatus
-import com.morphingcoffee.spacex.shared.fakes.FakeFailedLaunchWithRocketDto2015
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import shared.fakes.FakeFailedLaunchWithRocketDto2015
 import strikt.api.expectThat
 import strikt.assertions.isA
 import strikt.assertions.isEqualTo
