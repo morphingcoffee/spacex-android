@@ -33,3 +33,4 @@ available `v5` for launches, since the data is not coupled to the company info `
 Make sure you run instrumented tests with the device unlocked, otherwise you may face the following
 error: ```java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState```.
 
+Instrumented tests are supposed to be run with a `debug` build type.
