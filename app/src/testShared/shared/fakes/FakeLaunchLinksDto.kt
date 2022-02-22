@@ -1,4 +1,4 @@
-package com.morphingcoffee.spacex.shared.fakes
+package shared.fakes
 
 import com.morphingcoffee.spacex.data.remote.model.LaunchLinksDto
 
