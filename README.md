@@ -1,6 +1,7 @@
 # spacex-wip
 
 ### Sketch
+
 [Open in draw.io](https://drive.google.com/file/d/1VyL3SQWdsXMWnkCpl57tjIKqt_8wvbEK/view?usp=sharing)
 
 ### Decisions
@@ -25,4 +26,10 @@ naturally, that's propagated throughout the layers of the client app.
 ### v4 vs v5 API endpoints
 
 I was considering to use the same version for all of the endpoints, but switched to the
-available `v5` for launches, since the data is not coupled to the company info `v4` endpoint. 
+available `v5` for launches, since the data is not coupled to the company info `v4` endpoint.
+
+### Testing
+
+Make sure you run instrumented tests with the device unlocked, otherwise you may face the following
+error: ```java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState```.
+
