@@ -16,6 +16,10 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import kotlin.math.abs
 
+/**
+ * [ILaunchesRepository] implementation which caches items to DB instead of loading pages one by one.
+ * It uses [cachingConfig] to decide whether to perform local or remote lookups.
+ * **/
 class LaunchesRepository(
     private val launchesService: IFetchLaunchesService,
     private val db: AppDB,

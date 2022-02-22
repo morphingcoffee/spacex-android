@@ -1,0 +1,47 @@
+package com.morphingcoffee.spacex.shared.fakes
+
+import com.morphingcoffee.spacex.data.remote.model.LaunchWithRocketDto
+
+val FakeSuccessfulLaunchWithRocketDto2015 = LaunchWithRocketDto(
+    id = "id",
+    name = "launchname",
+    success = true,
+    dateUtc = "2015-12-22T01:29:00.000Z",
+    dateLocal = "2015-12-22T21:29:00-04:00",
+    dateUnix = 1450747740,
+    linksDto = null,
+    rocketDto = null,
+)
+
+val FakeFailedLaunchWithRocketDto2015 = LaunchWithRocketDto(
+    id = "id",
+    name = "launchname",
+    success = false,
+    dateUtc = "2015-12-22T01:29:00.000Z",
+    dateLocal = "2015-12-22T21:29:00-04:00",
+    dateUnix = 1450747740,
+    linksDto = null,
+    rocketDto = null,
+)
+
+val FakeSuccessfulLaunchWithRocketDto2016 = LaunchWithRocketDto(
+    id = "id",
+    name = "launchname",
+    success = true,
+    dateUtc = "2016-12-22T01:29:00.000Z",
+    dateLocal = "2016-12-22T21:29:00-04:00",
+    dateUnix = 1482304692,
+    linksDto = null,
+    rocketDto = null,
+)
+
+val FakeFailedLaunchWithRocketDto2016 = LaunchWithRocketDto(
+    id = "id",
+    name = "launchname",
+    success = false,
+    dateUtc = "2016-12-22T01:29:00.000Z",
+    dateLocal = "2016-12-22T21:29:00-04:00",
+    dateUnix = 1482304692,
+    linksDto = null,
+    rocketDto = null,
+)

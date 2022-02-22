@@ -11,7 +11,7 @@ interface ILaunchesRepository {
      **/
     suspend fun getAllLaunchesWithCriteria(
         sortingOption: SortingOption,
-        filterStatusOption: FilteringOption.ByLaunchStatus?,
-        filterYearOption: FilteringOption.ByYear?,
+        filterStatusOption: FilteringOption.ByLaunchStatus? = null,
+        filterYearOption: FilteringOption.ByYear? = null,
     ): List<Launch>
 }
