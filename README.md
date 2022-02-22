@@ -33,7 +33,7 @@ SpaceX API Android client, allowing to get company information & launch data. La
 
 <hr>
 
-[Open in draw.io](https://drive.google.com/file/d/1VyL3SQWdsXMWnkCpl57tjIKqt_8wvbEK/view?usp=sharing)
+![](docs/media/arch.png)
 
 <br>
 
