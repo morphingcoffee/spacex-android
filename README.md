@@ -29,11 +29,28 @@ SpaceX API Android client, allowing to get company information & launch data. La
 
 <br>
 
-### High-level design
+### High-level architecture
 
 <hr>
 
 ![](docs/media/arch.png)
+
+
+* **Data**
+  * Depends on Domain layer
+  * Responsible for low-level implementation for data fetching from remote (server) & local (db) data sources
+  * Provides mapping implementations from dto/entity to domain model
+* **Repository**
+  * Depends on Data & Domain layers
+  * Abstracts the data source from the domain
+  * Implementation to retrieve data mandated by domain's `IXyzRepository` interface. Decides which data source to use (remote vs local).
+* **Presentation**
+  * Depends on Domain layer
+  * Triggers domain use cases
+  * Contains ViewModels & Views (e.g. fragments)
+* **Domain**
+  * Depends on no other layer
+  * Contains high-level business policies & use cases
 
 <br>
 
