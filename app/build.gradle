@@ -50,6 +50,15 @@ android {
         jvmTarget = '1.8'
     }
 
+    sourceSets {
+        test {
+            java.srcDirs += "$projectDir/src/testShared"
+        }
+        androidTest {
+            java.srcDirs += "$projectDir/src/testShared"
+        }
+    }
+
     testOptions {
         packagingOptions {
             jniLibs {

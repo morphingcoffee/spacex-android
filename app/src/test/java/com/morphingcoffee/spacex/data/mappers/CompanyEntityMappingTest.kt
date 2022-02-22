@@ -3,7 +3,7 @@ package com.morphingcoffee.spacex.data.mappers
 import com.morphingcoffee.spacex.data.local.model.CompanyEntity
 import com.morphingcoffee.spacex.data.local.model.toDomainModel
 import com.morphingcoffee.spacex.domain.model.Company
-import com.morphingcoffee.spacex.shared.fakes.FakeCompanyEntity
+import shared.fakes.FakeCompanyEntity1
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -17,7 +17,7 @@ class CompanyEntityMappingTest {
 
     @Before
     fun setUp() {
-        entity = FakeCompanyEntity
+        entity = FakeCompanyEntity1
     }
 
     @After
