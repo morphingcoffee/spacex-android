@@ -58,7 +58,7 @@ SpaceX API Android client, allowing to get company information & launch data. La
 
 Instead of supporting pagination and allowing user to load launches bit by bit as they scroll down the list, I wanted to provide a fully-fledged sorting & filtering experience even when offline.
 
-Given the size of the dataset that did not seem unreasonable, so the solution loads & caches all the data into a DB. The user can then go offline and still use the app, or trigger a refresh if they want to update their data.
+Given the size of the dataset that did not seem unreasonable, so the solution loads & caches all the data into a DB. The user can lose connection and still use the app with filtering feature yielding accurate data, or trigger a refresh if they want to update the records after re-establishing the connection.
 
 <br>
 
