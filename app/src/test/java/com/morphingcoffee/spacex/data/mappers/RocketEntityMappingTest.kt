@@ -1,0 +1,36 @@
+package com.morphingcoffee.spacex.data.mappers
+
+import com.morphingcoffee.spacex.data.local.model.RocketEntity
+import com.morphingcoffee.spacex.data.local.model.toDomainModel
+import com.morphingcoffee.spacex.domain.model.Rocket
+import com.morphingcoffee.spacex.shared.fakes.FakeRocketEntity
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import strikt.api.expectThat
+import strikt.assertions.isA
+import strikt.assertions.isEqualTo
+
+class RocketEntityMappingTest {
+
+    private lateinit var entity: RocketEntity
+
+    @Before
+    fun setUp() {
+        entity = FakeRocketEntity
+    }
+
+    @After
+    fun tearDown() {
+    }
+
+    @Test
+    fun `entity should correctly map to domain model`() {
+        val subject = entity.toDomainModel()
+
+        expectThat(subject).isA<Rocket>()
+        expectThat(subject.name).isEqualTo(entity.name)
+        expectThat(subject.type).isEqualTo(entity.type)
+    }
+
+}

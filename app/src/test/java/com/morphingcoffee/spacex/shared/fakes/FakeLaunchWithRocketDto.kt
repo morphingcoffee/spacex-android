@@ -9,8 +9,8 @@ val FakeSuccessfulLaunchWithRocketDto2015 = LaunchWithRocketDto(
     dateUtc = "2015-12-22T01:29:00.000Z",
     dateLocal = "2015-12-22T21:29:00-04:00",
     dateUnix = 1450747740,
-    linksDto = null,
-    rocketDto = null,
+    linksDto = FakeLaunchLinksDto,
+    rocketDto = FakeRocketDto,
 )
 
 val FakeFailedLaunchWithRocketDto2015 = LaunchWithRocketDto(
@@ -20,8 +20,8 @@ val FakeFailedLaunchWithRocketDto2015 = LaunchWithRocketDto(
     dateUtc = "2015-12-22T01:29:00.000Z",
     dateLocal = "2015-12-22T21:29:00-04:00",
     dateUnix = 1450747740,
-    linksDto = null,
-    rocketDto = null,
+    linksDto = FakeLaunchLinksDto,
+    rocketDto = FakeRocketDto,
 )
 
 val FakeSuccessfulLaunchWithRocketDto2016 = LaunchWithRocketDto(
@@ -31,8 +31,8 @@ val FakeSuccessfulLaunchWithRocketDto2016 = LaunchWithRocketDto(
     dateUtc = "2016-12-22T01:29:00.000Z",
     dateLocal = "2016-12-22T21:29:00-04:00",
     dateUnix = 1482304692,
-    linksDto = null,
-    rocketDto = null,
+    linksDto = FakeLaunchLinksDto,
+    rocketDto = FakeRocketDto,
 )
 
 val FakeFailedLaunchWithRocketDto2016 = LaunchWithRocketDto(
@@ -42,6 +42,6 @@ val FakeFailedLaunchWithRocketDto2016 = LaunchWithRocketDto(
     dateUtc = "2016-12-22T01:29:00.000Z",
     dateLocal = "2016-12-22T21:29:00-04:00",
     dateUnix = 1482304692,
-    linksDto = null,
-    rocketDto = null,
+    linksDto = FakeLaunchLinksDto,
+    rocketDto = FakeRocketDto,
 )

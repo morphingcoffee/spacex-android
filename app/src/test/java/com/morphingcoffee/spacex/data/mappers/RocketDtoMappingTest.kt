@@ -1,0 +1,47 @@
+package com.morphingcoffee.spacex.data.mappers
+
+import com.morphingcoffee.spacex.data.local.model.RocketEntity
+import com.morphingcoffee.spacex.data.remote.model.RocketDto
+import com.morphingcoffee.spacex.data.remote.model.toDomainModel
+import com.morphingcoffee.spacex.data.remote.model.toEntity
+import com.morphingcoffee.spacex.domain.model.Rocket
+import com.morphingcoffee.spacex.shared.fakes.FakeRocketDto
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import strikt.api.expectThat
+import strikt.assertions.isA
+import strikt.assertions.isEqualTo
+
+class RocketDtoMappingTest {
+
+    private lateinit var dto: RocketDto
+
+    @Before
+    fun setUp() {
+        dto = FakeRocketDto
+    }
+
+    @After
+    fun tearDown() {
+    }
+
+    @Test
+    fun `dto should correctly map to domain model`() {
+        val subject = dto.toDomainModel()
+
+        expectThat(subject).isA<Rocket>()
+        expectThat(subject.name).isEqualTo(dto.name)
+        expectThat(subject.type).isEqualTo(dto.type)
+    }
+
+    @Test
+    fun `dto should correctly map to entity model`() {
+        val subject = dto.toEntity()
+
+        expectThat(subject).isA<RocketEntity>()
+        expectThat(subject.name).isEqualTo(dto.name)
+        expectThat(subject.type).isEqualTo(dto.type)
+    }
+
+}
